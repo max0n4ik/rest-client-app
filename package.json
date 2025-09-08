@@ -3,8 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "react-router build",
     "dev": "react-router dev",
+    "build": "react-router build",
     "typecheck": "react-router typegen && tsc",
     "lint:fix": "eslint . --fix",
     "lint": "eslint ."
@@ -20,11 +20,13 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
     "eslint-plugin-react-compiler": "^19.0.0-beta-af1b7da-20250417",
+    "i18next": "^25.5.2",
     "isbot": "^5.1.27",
     "lefthook": "^1.12.3",
     "lucide-react": "^0.542.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-i18next": "^15.7.3",
     "react-router": "^7.7.1",
     "tailwind-merge": "^3.3.1",
     "vitest": "^3.2.4",
