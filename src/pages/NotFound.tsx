@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { Button } from '~/components/ui/button';
 
+
 const NotFound = (): JSX.Element => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ const NotFound = (): JSX.Element => {
             className="bg-secondary hover:bg-primary w-full cursor-pointer rounded px-6 py-2 font-semibold text-white shadow"
             onClick={() => navigate('/')}>
             {t('notFound.button')}
-          </Button>
+          </Button> 
         </div>
       </div>
     </>
