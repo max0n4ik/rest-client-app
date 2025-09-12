@@ -20,5 +20,10 @@
       "languageAchievement": "You can change the language in the top right corner",
       "restAchievement": "Go to RESTfull client, check your API and get responses to requests",
       "historyAchievement": "Go to History, see previous requests and responses"
+    },
+    "notFound":{
+      "title": "404 - Page Not Found",
+      "text": "Oops! The page you are looking for does not exist.",
+      "button": "Take me back home"
     }
 }
