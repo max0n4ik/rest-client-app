@@ -1,3 +1,42 @@
 {
-  "hello": "1"
+  "hello": "1",
+  "footer": {
+        "text": "Developed with ❤️ by Fan of React Team in terms of",
+        "link": "Rolling Scopes React course",
+        "copyright": "© 2025 RESTify. All rights reserved."
+    },
+    "header": {
+      "title": "RESTify",
+      "restClient": "REST Client",
+      "history": "History",
+      "login": "Login",
+      "signup": "Registration"
+    },
+    "homeIncognito": {
+      "welcomeTitle": "Welcome to RESTify — Simplify Your API Workflow",
+      "welcomeText": "RESTify is your go-to tool for testing and debugging RESTful APIs. Light, fast, and intuitive, it's designed to help developers streamline their API development process without the clutter of bulky tools like Postman or Thunder.",
+      "projectAchievements": "Project Achievements",
+      "themeAchievement": "Change the theme from light to dark and vice versa",
+      "languageAchievement": "You can change the language in the top right corner",
+      "restAchievement": "Go to RESTfull client, check your API and get responses to requests",
+      "historyAchievement": "Go to History, see previous requests and responses"
+    },
+    "homeAuthorized": {
+      "welcomeTitle": "Welcome back to RESTify — Your API Workflow Companion",
+      "welcomeText": "Create queries, work with data fast and easily, and keep them all in one location.",
+      "homeButton": "Create Your API Request",
+      "projectContributors": "The People of the Kingdom",
+      "contributor1": "Asya",
+      "contributor2": "Maxim",
+      "contributor3": "Dmitriy",
+      "contribution1": "Designed the app in Figma, developed the main page and not-found page, and shaped the user-friendly interface.",
+      "contribution2": "[Placeholder: Share contributions like building API handling or managing state and functionality.]",
+      "contribution3": "[Placeholder: Highlight work like backend integration or optimizing performance.]"
+
+    },
+    "notFound":{
+      "title": "404 - Page Not Found",
+      "text": "Oops! The page you are looking for does not exist.",
+      "button": "Take me back home"
+    }
 }

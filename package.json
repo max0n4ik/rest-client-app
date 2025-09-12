@@ -10,9 +10,14 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^7.0.1",
+    "@fortawesome/free-solid-svg-icons": "^7.0.1",
+    "@fortawesome/react-fontawesome": "^3.0.2",
+    "@radix-ui/react-slot": "^1.2.3",
     "@react-router/node": "^7.7.1",
     "@react-router/serve": "^7.7.1",
     "@supabase/supabase-js": "^2.57.2",
+    "@tailwindcss/typography": "^0.5.16",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/react": "^16.3.0",
     "class-variance-authority": "^0.7.1",
@@ -29,6 +34,7 @@
     "react-i18next": "^15.7.3",
     "react-router": "^7.7.1",
     "tailwind-merge": "^3.3.1",
+    "tailwindcss-animate": "^1.0.7",
     "vitest": "^3.2.4",
     "zod": "^4.1.5",
     "zustand": "^5.0.8"
@@ -42,6 +48,7 @@
     "@types/node": "^20",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
+    "@types/tailwindcss__typography": "^0.5.0",
     "@typescript-eslint/parser": "^8.42.0",
     "eslint": "^9.35.0",
     "eslint-import-resolver-typescript": "^4.4.4",
@@ -62,6 +69,7 @@
   },
   "optionalDependencies": {
     "@rollup/rollup-linux-arm64-gnu": "^4.0.0",
-    "lightningcss-linux-x64-gnu": "^1.30.0"
+    "lightningcss-linux-x64-gnu": "^1.30.0",
+    "@tailwindcss/oxide-linux-x64-gnu": "4.1.13"
   }
 }
