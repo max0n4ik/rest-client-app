@@ -39,7 +39,7 @@ export default function App() {
 }
 
 export function HydrateFallback() {
-  return <div>Loading</div>;
+  return <div>Loading...</div>;
 }
 
 export function ErrorBoundary() {

@@ -33,5 +33,10 @@
       "contribution2": "[Placeholder: Share contributions like building API handling or managing state and functionality.]",
       "contribution3": "[Placeholder: Highlight work like backend integration or optimizing performance.]"
 
+    },
+    "notFound":{
+      "title": "404 - Page Not Found",
+      "text": "Oops! The page you are looking for does not exist.",
+      "button": "Take me back home"
     }
 }
