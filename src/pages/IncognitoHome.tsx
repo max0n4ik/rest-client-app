@@ -1,8 +1,8 @@
 import AchievementCard from '@/shared/AchievementCard/AchievementCard';
 import type { JSX } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ModeDarkIcon, HistoryIcon } from 'tdesign-icons-react';
-import { ApiOutlined } from '@ant-design/icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClockRotateLeft, faLanguage, faMoon, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 
 const IncognitoHome = (): JSX.Element => {
   const { t } = useTranslation();
@@ -40,34 +40,20 @@ const IncognitoHome = (): JSX.Element => {
         </h1>
         <ul className="wrap absolute top-70 left-1/2 flex w-full max-w-screen-xl -translate-x-1/2 flex-col items-center gap-x-0 gap-y-8 text-left text-xl font-medium sm:grid sm:grid-cols-3 sm:items-stretch sm:gap-x-12 sm:gap-y-12">
           <AchievementCard
-            icon={<ModeDarkIcon style={{ fontSize: '2rem' }} />}
+            icon={<FontAwesomeIcon icon={faMoon} style={{ fontSize: '2rem' }} />}
             description={String(t('homeIncognito.themeAchievement'))}
           />
           <AchievementCard
-            icon={
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="-5 -5 34 34"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="size-12">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="m10.5 21 5.25-11.25L21 21m-9-3h7.5M3 5.621a48.474 48.474 0 0 1 6-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.69 15.08 3 17.502m9.334-12.138c.896.061 1.785.147 2.666.257m-4.589 8.495a18.023 18.023 0 0 1-3.827-5.802"
-                />
-              </svg>
-            }
+            icon={<FontAwesomeIcon icon={faLanguage} style={{ fontSize: '2rem' }} />}
             description={String(t('homeIncognito.languageAchievement'))}
           />
           <AchievementCard
-            icon={<ApiOutlined style={{ fontSize: '2rem' }} />}
+            icon={<FontAwesomeIcon icon={faPaperPlane} style={{ fontSize: '2rem' }} />}
             description={String(t('homeIncognito.restAchievement'))}
           />
           <li className="m-0 flex w-full list-none justify-center p-0 sm:col-span-3 sm:w-auto">
             <AchievementCard
-              icon={<HistoryIcon style={{ fontSize: 36 }} />}
+              icon={<FontAwesomeIcon icon={faClockRotateLeft} style={{ fontSize: '2rem' }} />}
               description={String(t('homeIncognito.historyAchievement'))}
             />
           </li>
