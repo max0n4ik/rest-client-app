@@ -1,6 +1,13 @@
-import { useTranslation } from 'react-i18next';
+import Footer from '@/shared/Footer/Footer';
+import Header from '@/shared/Header/Header';
+import IncognitoHome from './IncognitoHome';
 
 export default function Home() {
-  const { t } = useTranslation('home');
-  return <div className="text-6xl">{t('hello')}</div>;
+  return (
+    <>
+      <Header />
+      <IncognitoHome />
+      <Footer />
+    </>
+  );
 }

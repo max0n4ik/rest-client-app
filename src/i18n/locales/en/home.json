@@ -1,3 +1,29 @@
 {
-  "hello": "1"
+  "hello": "1",
+  "footer": {
+        "text": "Developed with ❤️ by Fan of React Team in terms of",
+        "link": "Rolling Scopes React course",
+        "copyright": "© 2025 RESTify. All rights reserved."
+    },
+    "header": {
+      "title": "RESTify",
+      "restClient": "REST Client",
+      "history": "History",
+      "login": "Login",
+      "signup": "Registration"
+    },
+    "homeIncognito": {
+      "welcomeTitle": "Welcome to RESTify — Simplify Your API Workflow",
+      "welcomeText": "RESTify is your go-to tool for testing and debugging RESTful APIs. Light, fast, and intuitive, it's designed to help developers streamline their API development process without the clutter of bulky tools like Postman or Thunder.",
+      "projectAchievements": "Project Achievements",
+      "themeAchievement": "Change the theme from light to dark and vice versa",
+      "languageAchievement": "You can change the language in the top right corner",
+      "restAchievement": "Go to RESTfull client, check your API and get responses to requests",
+      "historyAchievement": "Go to History, see previous requests and responses"
+    },
+    "notFound":{
+      "title": "404 - Page Not Found",
+      "text": "Oops! The page you are looking for does not exist.",
+      "button": "Take me back home"
+    }
 }
