@@ -1,3 +1,24 @@
 {
-  "hello": "привет"
+  "hello": "привет",
+  "footer": {
+        "text": "Разработано с ❤️ командой Fan of React в рамках курса",
+        "link": "Rolling Scopes React course",
+        "copyright": "© 2025 RESTify. Все права защищены."
+    },
+   "header": {
+      "title": "RESTify",
+      "restClient": "REST Клиент",
+      "history": "История",
+      "login": "Войти",
+      "signup": "Регистрация"
+    },
+    "homeIncognito": {
+      "welcomeTitle": "Добро пожаловать в RESTify — упростите свой API-рабочий процесс",
+      "welcomeText": "RESTify — это ваш инструмент для тестирования и отладки RESTful API. Легкий, быстрый и интуитивно понятный, он создан для того, чтобы помочь разработчикам оптимизировать процесс разработки API без лишнего нагромождения громоздкими инструментами, такими как Postman или Thunder.",
+      "projectAchievements": "Достижения проекта",
+      "themeAchievement": "Смените тему с светлой на темную и наоборот",
+      "languageAchievement": "Вы можете изменить язык в правом верхнем углу",
+      "restAchievement": "Перейдите в RESTfull клиент, проверьте свой API и получите ответы на запросы",
+      "historyAchievement": "Перейдите в Историю, чтобы увидеть предыдущие запросы и ответы"
+    }
 }
