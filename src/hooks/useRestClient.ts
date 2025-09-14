@@ -21,7 +21,14 @@ export function useRestClient<T = unknown>() {
         body: ['GET', 'HEAD'].includes(method) ? undefined : body,
       });
 
-      const data: T = JSON.parse(await res.json());
+      let data: T | string;
+      const contentType = res.headers.get('content-type');
+
+      if (contentType?.includes('application/json')) {
+        data = (await res.json()) as T;
+      } else {
+        data = await res.text();
+      }
 
       setResponse({
         status: res.status,
