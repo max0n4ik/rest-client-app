@@ -1,7 +1,7 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
 @plugin "tailwindcss-animate";
-@import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -17,6 +17,20 @@ body {
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
   }
+
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+input:-webkit-autofill {
+  box-shadow: 0 0 0 1000px transparent inset;
+  transition: background-color 5000s ease-in-out;
+
+  -webkit-text-fill-color: var(--primary);
 }
 
 @theme inline {
@@ -28,6 +42,7 @@ body {
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
+  --color-card-30: var(--card-30);
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
@@ -63,19 +78,20 @@ body {
   --foreground: #24305E;
   --card: oklch(1 0 0);
   --card-foreground: #0F172A;
-  --popover: oklch(1 0 0);
+  --card-30: rgba(255, 255, 255, 0.31);
+  --popover: rgba(255, 255, 255, 0.31);
   --popover-foreground: oklch(0.129 0.042 264.695);
   --primary: #0F172A;
   --primary-foreground: oklch(0.984 0.003 247.858);
   --secondary: #24305E;
   --secondary-foreground: #374785;
   --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
+  --muted-foreground: #0F172A;
   --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
-  --destructive: oklch(0.577 0.245 27.325);
+  --accent-foreground: #0F172A;
+  --destructive: #f76c6c;
   --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
+  --input: #0F172A;
   --ring: oklch(0.704 0.04 256.788);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
@@ -97,6 +113,7 @@ body {
   --foreground: oklch(0.984 0.003 247.858);
   --card: oklch(0.208 0.042 265.755);
   --card-foreground: oklch(0.984 0.003 247.858);
+  --card-30: rgba(255, 255, 255, 0.31);
   --popover: oklch(0.208 0.042 265.755);
   --popover-foreground: oklch(0.984 0.003 247.858);
   --primary: oklch(0.929 0.013 255.508);
