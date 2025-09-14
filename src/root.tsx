@@ -1,7 +1,18 @@
-import { Links, Meta, Outlet, Scripts, ScrollRestoration, type LinksFunction } from 'react-router';
+import {
+  isRouteErrorResponse,
+  Links,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+  type LinksFunction,
+} from 'react-router';
 import './global.css';
 import NotFound from './pages/NotFound';
 import './i18n';
+import Header from './shared/Header/Header';
+import Footer from './shared/Footer/Footer';
+import type { Route } from './+types/root';
 
 export const links: LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -26,7 +37,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
+        <Header />
         {children}
+        <Footer />
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -38,10 +51,28 @@ export default function App() {
   return <Outlet />;
 }
 
-export function HydrateFallback() {
-  return <div>Loading...</div>;
-}
+export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
+  const message = 'Oops!';
+  let details = 'An unexpected error occurred.';
+  let stack: string | undefined;
 
-export function ErrorBoundary() {
-  return <NotFound />;
+  if (isRouteErrorResponse(error)) {
+    if (error.status) {
+      return <NotFound />;
+    }
+  } else if (import.meta.env.DEV && error && error instanceof Error) {
+    details = error.message;
+    stack = error.stack;
+  }
+  return (
+    <main className="container mx-auto p-4 pt-16">
+      <h1>{message}</h1>
+      <p>{details}</p>
+      {stack && (
+        <pre className="w-full overflow-x-auto p-4">
+          <code>{stack}</code>
+        </pre>
+      )}
+    </main>
+  );
 }
