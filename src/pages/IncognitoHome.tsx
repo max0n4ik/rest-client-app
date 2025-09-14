@@ -12,7 +12,7 @@ const IncognitoHome = (): JSX.Element => {
       <div
         className="relative mx-auto h-screen max-w-screen overflow-x-hidden overflow-y-hidden"
         style={{
-          background: `linear-gradient(to bottom, #A8D0E6 0%, rgba(0,0,0,0) 60%), url('/main-page-mountains.jpg') center/cover no-repeat`,
+          background: `linear-gradient(to bottom, #A8D0E6 0%, rgba(0,0,0,0) 60%), url('images/main-page-mountains.jpg') center/cover no-repeat`,
           backgroundColor: '#A8D0E6',
         }}>
         <div className="flex h-full w-full flex-col items-center justify-center px-4 sm:block">
@@ -28,7 +28,7 @@ const IncognitoHome = (): JSX.Element => {
         <div
           className="inset-0 -z-10"
           style={{
-            background: `linear-gradient(to bottom, #A8D0E6 0%, rgba(0, 0, 0, 0.32) 60%), url('/main-page-mountains.jpg') center/cover no-repeat`,
+            background: `linear-gradient(to bottom, #A8D0E6 0%, rgba(0, 0, 0, 0.32) 60%), url('images/main-page-mountains.jpg') center/cover no-repeat`,
             backgroundColor: '#A8D0E6',
             transform: 'scaleY(-1)',
             width: '100vw',

@@ -10,7 +10,7 @@ const AuthorizedHome = (): JSX.Element => {
       <div
         className="relative mx-auto h-screen max-w-screen overflow-x-hidden overflow-y-hidden"
         style={{
-          background: `linear-gradient(to bottom, #A8D0E6 0%, rgba(0,0,0,0) 60%), url('/main-page-mountains.jpg') center/cover no-repeat`,
+          background: `linear-gradient(to bottom, #A8D0E6 0%, rgba(0,0,0,0) 60%), url('images/main-page-mountains.jpg') center/cover no-repeat`,
           backgroundColor: '#A8D0E6',
         }}>
         <div className="flex h-full w-full flex-col items-center justify-center px-4 sm:block">
@@ -26,7 +26,7 @@ const AuthorizedHome = (): JSX.Element => {
         <div
           className="inset-0 -z-10"
           style={{
-            background: `linear-gradient(to bottom, #A8D0E6 0%, rgba(0, 0, 0, 0.32) 60%), url('/main-page-mountains.jpg') center/cover no-repeat`,
+            background: `linear-gradient(to bottom, #A8D0E6 0%, rgba(0, 0, 0, 0.32) 60%), url('images/main-page-mountains.jpg') center/cover no-repeat`,
             backgroundColor: '#A8D0E6',
             transform: 'scaleY(-1)',
             width: '100vw',
@@ -38,17 +38,17 @@ const AuthorizedHome = (): JSX.Element => {
         </h1>
         <ul className="wrap absolute top-70 left-1/2 flex w-full max-w-screen-xl -translate-x-1/2 flex-col items-center gap-x-0 gap-y-8 text-left text-xl font-medium sm:grid sm:grid-cols-3 sm:items-stretch sm:gap-x-12 sm:gap-y-12">
           <UserCard
-            photo="/asya.jpg"
+            photo="images/asya.jpg"
             name={String(t('homeAuthorized.contributor1'))}
             description={String(t('homeAuthorized.contribution1'))}
           />
           <UserCard
-            photo="/maxim.png"
+            photo="images/maxim.png"
             name={String(t('homeAuthorized.contributor2'))}
             description={String(t('homeAuthorized.contribution2'))}
           />
           <UserCard
-            photo="/dmitriy.jpg"
+            photo="images/dmitriy.jpg"
             name={String(t('homeAuthorized.contributor3'))}
             description={String(t('homeAuthorized.contribution3'))}
           />
