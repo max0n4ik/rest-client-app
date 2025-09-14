@@ -3,7 +3,7 @@ import type { JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { Button } from '~/components/ui/button';
-
+import Footer from '@/shared/Footer/Footer';
 
 const NotFound = (): JSX.Element => {
   const { t } = useTranslation();
@@ -13,7 +13,7 @@ const NotFound = (): JSX.Element => {
     <>
       <Header />
       <div
-        className="relative mx-auto flex h-[93.5vh] max-w-screen items-center justify-center overflow-x-hidden overflow-y-hidden"
+        className="relative flex max-w-screen flex-1 items-center justify-center overflow-x-hidden overflow-y-hidden"
         style={{
           background: `linear-gradient(to bottom, #A8D0E6 0%, rgba(0,0,0,0) 60%), url('/not-found-mountains.jpg') center/cover no-repeat`,
           backgroundColor: '#A8D0E6',
@@ -25,9 +25,10 @@ const NotFound = (): JSX.Element => {
             className="bg-secondary hover:bg-primary w-full cursor-pointer rounded px-6 py-2 font-semibold text-white shadow"
             onClick={() => navigate('/')}>
             {t('notFound.button')}
-          </Button> 
+          </Button>
         </div>
       </div>
+      <Footer />
     </>
   );
 };
