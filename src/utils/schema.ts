@@ -4,11 +4,10 @@ export const loginScheme = z.object({
   email: z.email('Invalid email address, (e.g., example@email.com)'),
   password: z
     .string()
-    .min(8, 'Password must be at least 8 characters')
-    .regex(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$/,
-      'Must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number'
-    ),
+    .min(8, 'Password must be at least 8 characters long')
+    .regex(/[a-zA-Z]/, 'Password must contain at least one letter')
+    .regex(/\d/, 'Password must contain at least one digit')
+    .regex(/[^a-zA-Z0-9]/, 'Password must contain at least one special character'),
 });
 
 export const registrationScheme = z
@@ -26,18 +25,11 @@ export const registrationScheme = z
       }),
     password: z
       .string()
-      .min(8, 'Password must be at least 8 characters')
-      .regex(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$/,
-        'Must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number'
-      ),
-    confirmPassword: z
-      .string()
-      .min(8, 'Password must be at least 8 characters')
-      .regex(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$/,
-        'Must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number'
-      ),
+      .min(8, 'Password must be at least 8 characters long')
+      .regex(/[a-zA-Z]/, 'Password must contain at least one letter')
+      .regex(/\d/, 'Password must contain at least one digit')
+      .regex(/[^a-zA-Z0-9]/, 'Password must contain at least one special character'),
+    confirmPassword: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: 'Password do not match',
