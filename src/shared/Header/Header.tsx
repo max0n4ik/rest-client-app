@@ -3,9 +3,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLanguage, faMoon } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
+import { useAuthStore } from '@/store/AuthState';
 
 const Header = (): JSX.Element => {
   const { t, i18n } = useTranslation();
+  const login = useAuthStore((state) => state.user);
   const changeLanguageHandler = () => {
     i18n.changeLanguage(i18n.language === 'en' ? 'ru' : 'en');
   };
@@ -16,12 +18,25 @@ const Header = (): JSX.Element => {
         <h1 className="text-2xl font-bold">{t('header.title')}</h1>
       </div>
       <nav className="ml-auto space-x-4 text-2xl font-semibold tracking-tight uppercase first:mt-0">
-        <Link to="/login" className="hover:text-secondary-foreground">
-          {t('header.login')}
-        </Link>
-        <Link to="/registration" className="hover:text-secondary-foreground">
-          {t('header.signup')}
-        </Link>
+        {login ? (
+          <>
+            <Link to="/history" className="hover:text-secondary-foreground">
+              History
+            </Link>
+            <Link to="/rest-client" className="hover:text-secondary-foreground">
+              REST Client
+            </Link>
+          </>
+        ) : (
+          <>
+            <Link to="/login" className="hover:text-secondary-foreground">
+              {t('header.login')}
+            </Link>
+            <Link to="/registration" className="hover:text-secondary-foreground">
+              {t('header.signup')}
+            </Link>
+          </>
+        )}
       </nav>
       <div className="mr-15 ml-auto flex items-center gap-2">
         <button
