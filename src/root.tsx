@@ -1,7 +1,9 @@
-import { Links, Meta, Outlet, Scripts, ScrollRestoration, type LinksFunction } from 'react-router';
+import { Links, type LinksFunction, Meta, Outlet, Scripts, ScrollRestoration } from 'react-router';
 import './global.css';
 import NotFound from './pages/NotFound';
 import './i18n';
+import Header from '@/shared/Header/Header';
+import Footer from '@/shared/Footer/Footer';
 
 export const links: LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -35,7 +37,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <>
+      <Header />
+      <main className="flex-1">
+        <Outlet />
+      </main>
+      <Footer />
+    </>
+  );
 }
 
 export function HydrateFallback() {
