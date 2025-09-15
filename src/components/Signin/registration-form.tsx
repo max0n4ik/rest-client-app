@@ -12,9 +12,6 @@ import { useFetcher, useNavigate } from 'react-router';
 import { toast } from 'sonner';
 import { registrationScheme } from '@/utils/schema';
 import { Tooltip } from '../ui/error-message';
-// import useRegistrationStore from '@/store/registration';
-// import type { RegistrationStepProps } from '@/utils/interfaces';
-// import { validateRegistrationCredentials, type RegistrationCredentials } from '@/utils/schema';
 
 export default function RegistrationForm(): React.JSX.Element {
   const fetcher = useFetcher();

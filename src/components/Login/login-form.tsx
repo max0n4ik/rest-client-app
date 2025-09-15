@@ -12,7 +12,6 @@ import { loginScheme } from '@/utils/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, type FieldValues } from 'react-hook-form';
 import { useAuthStore } from '@/store/AuthState';
-// import { createClient } from '@/api/client';
 import { Tooltip } from '../ui/error-message';
 
 export default function LoginForm({ className, ...props }: React.ComponentPropsWithoutRef<'form'>): React.JSX.Element {
