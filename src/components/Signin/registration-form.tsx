@@ -69,7 +69,7 @@ export default function RegistrationForm(): React.JSX.Element {
         <div className="relative grid gap-2">
           <Label htmlFor="name">Name</Label>
           <div className="relative">
-            <Input id="Name" type="text" autoComplete="off" placeholder="Name" {...register('name')} />
+            <Input id="name" type="text" autoComplete="off" placeholder="Name" {...register('name')} />
             {errors.name && (
               <div className="absolute top-full left-0 mt-1">
                 <Tooltip message={errors.name.message} />

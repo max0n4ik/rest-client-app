@@ -71,7 +71,7 @@ export default function LoginForm({ className, ...props }: React.ComponentPropsW
         </div>
         <div className="relative grid gap-2">
           <div className="relative">
-            <Label htmlFor="email">Password</Label>
+            <Label htmlFor="password">Password</Label>
             <div className="relative">
               <Input
                 id="password"

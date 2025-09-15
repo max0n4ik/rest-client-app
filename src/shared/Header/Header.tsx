@@ -12,7 +12,7 @@ const Header = (): JSX.Element => {
     i18n.changeLanguage(i18n.language === 'en' ? 'ru' : 'en');
   };
   return (
-    <header className="flex h-15 w-full items-center justify-center">
+    <header className="flex h-14 min-h-14 w-full items-center justify-center">
       <div className="flex items-center">
         <img src="images/logo.png" alt="Logo" style={{ width: '60px' }} className="mr-3 ml-10 h-10 w-15" />
         <h1 className="text-2xl font-bold">{t('header.title')}</h1>

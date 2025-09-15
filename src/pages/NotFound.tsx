@@ -8,7 +8,7 @@ const NotFound = (): JSX.Element => {
   return (
     <>
       <div
-        className="relative mx-auto flex h-[93.5vh] max-w-screen items-center justify-center overflow-x-hidden overflow-y-hidden"
+        className="relative flex max-w-screen flex-1 items-center justify-center overflow-x-hidden overflow-y-hidden"
         style={{
           background: `linear-gradient(to bottom, #A8D0E6 0%, rgba(0,0,0,0) 60%), url('images/not-found-mountains.jpg') center/cover no-repeat`,
           backgroundColor: '#A8D0E6',
