@@ -26,6 +26,9 @@ export default function LoginPage(): React.JSX.Element {
         </div>
       </div>
       <div className="bg-muted relative hidden lg:block">
+        <Link to="/" className="absolute inset-[45%] z-10 text-5xl font-bold">
+          RESTify
+        </Link>
         <img
           src="images/login-mountains.jpg"
           alt="export"

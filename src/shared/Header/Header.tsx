@@ -5,8 +5,10 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 
 const Header = (): JSX.Element => {
-  const { t } = useTranslation();
-
+  const { t, i18n } = useTranslation();
+  const changeLanguageHandler = () => {
+    i18n.changeLanguage(i18n.language === 'en' ? 'ru' : 'en');
+  };
   return (
     <header className="flex h-15 w-full items-center justify-center">
       <div className="flex items-center">
@@ -22,7 +24,9 @@ const Header = (): JSX.Element => {
         </Link>
       </nav>
       <div className="mr-15 ml-auto flex items-center gap-2">
-        <button className="hover:text-secondary-foreground flex h-10 w-10 cursor-pointer items-center justify-center rounded border border-white bg-white hover:bg-gray-200">
+        <button
+          onClick={changeLanguageHandler}
+          className="hover:text-secondary-foreground flex h-10 w-10 cursor-pointer items-center justify-center rounded border border-white bg-white hover:bg-gray-200">
           <FontAwesomeIcon icon={faLanguage} />
         </button>
         <button className="hover:text-secondary-foreground flex h-10 w-10 cursor-pointer items-center justify-center rounded border border-white bg-white hover:bg-gray-200">

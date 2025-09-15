@@ -1,13 +1,14 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @plugin "tailwindcss-animate";
-@import "tw-animate-css";
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-sans:
+    'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+    'Noto Color Emoji';
 }
 
 html,
@@ -59,16 +60,16 @@ body {
 
 :root {
   --radius: 0.625rem;
-  --background: #A8D0E6;
-  --foreground: #24305E;
+  --background: #a8d0e6;
+  --foreground: #24305e;
   --card: oklch(1 0 0);
-  --card-foreground: #0F172A;
+  --card-foreground: #0f172a;
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: #0F172A;
+  --primary: #0f172a;
   --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: #24305E;
-  --secondary-foreground: #374785;
+  --secondary: #374785;
+  --secondary-foreground: #ffff;
   --muted: oklch(0.968 0.007 247.896);
   --muted-foreground: oklch(0.554 0.046 257.417);
   --accent: oklch(0.968 0.007 247.896);

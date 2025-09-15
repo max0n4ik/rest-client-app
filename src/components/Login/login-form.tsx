@@ -5,15 +5,24 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
 import { cn } from '@/utils/utils';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { toast } from 'sonner';
+import { useNavigate } from 'react-router';
 import { loginScheme } from '@/utils/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, type FieldValues } from 'react-hook-form';
 import { useAuthStore } from '@/store/AuthState';
+// import { createClient } from '@/api/client';
+import { Tooltip } from '../ui/error-message';
 
 export default function LoginForm({ className, ...props }: React.ComponentPropsWithoutRef<'form'>): React.JSX.Element {
-  const submitted = useAuthStore((state) => state.login);
+  const login = useAuthStore((state) => state.login);
+  const storeError = useAuthStore((state) => state.error);
+  const clearError = useAuthStore((state) => state.clearError);
+  const loading = useAuthStore((state) => state.loading);
+  const [error, setError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -21,19 +30,26 @@ export default function LoginForm({ className, ...props }: React.ComponentPropsW
     formState: { errors, isSubmitting },
   } = useForm({ mode: 'onBlur', resolver: zodResolver(loginScheme) });
 
-  const onSubmit = (data: FieldValues) => {
-    try {
-      submitted(data);
-      reset();
-    } catch (error) {
-      console.log(error);
+  useEffect(() => {
+    setError(storeError);
+  }, [storeError]);
+
+  const onSubmit = async (FormData: FieldValues) => {
+    clearError();
+    const errors = await login({ email: FormData.email as string, password: FormData.password as string });
+    if (errors) {
+      setError(errors);
+      return;
     }
+    reset();
+    toast.success('Successfully logged in');
+    navigate('/');
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={cn('flex flex-col gap-6', className)} {...props}>
       <div className="flex flex-col items-center gap-2 text-center">
-        <h1 className="text-2xl font-bold">Login</h1>
+        <h1 className="font-serif text-[30px]">Login</h1>
       </div>
 
       <div className="grid gap-6">
@@ -49,9 +65,7 @@ export default function LoginForm({ className, ...props }: React.ComponentPropsW
           />
           {errors.email?.message && (
             <div className="absolute top-full left-0 mt-1">
-              <div className='className="absolute bg-background border-destructive text-destructive shadow-lg" top-1/4 left-full z-10 ml-2 w-max -translate-y-1/4 rounded border px-2 py-1 text-sm font-medium'>
-                {errors.email?.message}
-              </div>
+              <Tooltip message={errors.email?.message} />
             </div>
           )}
         </div>
@@ -80,16 +94,14 @@ export default function LoginForm({ className, ...props }: React.ComponentPropsW
           </div>
           {errors.password?.message && (
             <div className="absolute top-full left-0 mt-1">
-              <div className='className="absolute bg-background border-destructive text-destructive shadow-lg" top-1/4 left-full z-10 ml-2 w-max -translate-y-1/4 rounded border px-2 py-1 text-sm font-medium'>
-                {errors.password?.message}
-              </div>
+              <Tooltip message={errors.password?.message} />
             </div>
           )}
         </div>
-        {/* {state?.message && !state?.errors && <p className="text-destructive text-sm font-medium">{state.message}</p>} */}
+        {error ? <p className="text-destructive text-sm font-medium">{error}</p> : null}
 
-        <Button type="submit" className="w-full" aria-disabled={isSubmitting}>
-          {isSubmitting ? 'Logging in...' : 'Login'}
+        <Button variant={'secondary'} type="submit" className="w-full" aria-disabled={isSubmitting || loading}>
+          {isSubmitting || loading ? 'Logging in...' : 'Login'}
         </Button>
       </div>
     </form>

@@ -8,10 +8,13 @@ import {
   ScrollRestoration,
   type LinksFunction,
 } from 'react-router';
-import './global.css';
+import stylesheet from './global.css?url';
 import NotFound from './pages/NotFound';
 import './i18n';
 import type { Route } from './+types/root';
+import { Toaster } from 'sonner';
+import { useEffect } from 'react';
+import { useAuthStore } from './store/AuthState';
 
 export const links: LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -24,6 +27,7 @@ export const links: LinksFunction = () => [
     rel: 'stylesheet',
     href: 'https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap',
   },
+  { rel: 'stylesheet', href: stylesheet },
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -37,6 +41,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         {children}
+        <Toaster position="bottom-center" richColors />
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -45,6 +50,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
+  const init = useAuthStore((s) => s.init);
+  useEffect(() => {
+    init();
+  }, [init]);
   return <Outlet />;
 }
 

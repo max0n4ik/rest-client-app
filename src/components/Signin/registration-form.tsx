@@ -1,46 +1,57 @@
 import { Eye, EyeOff } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { cn } from '@/utils/utils';
-import { useAuthStore } from '@/store/AuthState';
+
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm, type FieldValues } from 'react-hook-form';
+import { useFetcher, useNavigate } from 'react-router';
+import { toast } from 'sonner';
+import { registrationScheme } from '@/utils/schema';
+import { Tooltip } from '../ui/error-message';
 // import useRegistrationStore from '@/store/registration';
 // import type { RegistrationStepProps } from '@/utils/interfaces';
 // import { validateRegistrationCredentials, type RegistrationCredentials } from '@/utils/schema';
 
 export default function RegistrationForm(): React.JSX.Element {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    confirmPassword: '',
-  });
+  const fetcher = useFetcher();
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm({ mode: 'onBlur', resolver: zodResolver(registrationScheme) });
 
-  const submitted = useAuthStore((state) => state.login);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [error, setError] = useState<string | null>(null);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-    setErrors((prevErrors) => {
-      return Object.fromEntries(Object.entries(prevErrors).filter(([key]) => key !== name));
-    });
-  };
+  useEffect(() => {
+    if (fetcher.data && typeof fetcher.data === 'object') {
+      const payload = fetcher.data as { error?: string | null; message?: string };
+      if (payload.error) {
+        setError(payload.error);
+      } else {
+        setError(null);
+        if (payload.message) {
+          reset();
+          toast.success('Successfully registered');
+          navigate('/');
+        }
+      }
+    }
+  }, [fetcher.data, reset, navigate]);
 
-  const handleSubmit = (e: React.FormEvent): void => {
-    submitted(e);
-    e.preventDefault();
-    setErrors(errors);
+  const onSubmit = (FormData: FieldValues) => {
+    fetcher.submit(FormData as Record<string, string>, { method: 'post', action: '/registration' });
   };
 
   return (
-    <form onSubmit={handleSubmit} className={cn('flex flex-col gap-6')}>
+    <form onSubmit={handleSubmit(onSubmit)} className={cn('flex flex-col gap-6')}>
       <div className="flex flex-col items-center gap-2 text-center">
         <h1 className="text-2xl font-bold capitalize">Get started now</h1>
         <p className="text-muted-foreground text-sm text-balance">Enter your Credentials to create your account</p>
@@ -48,21 +59,23 @@ export default function RegistrationForm(): React.JSX.Element {
       <div className="grid gap-6">
         <div className="relative grid gap-2">
           <Label htmlFor="email">Email</Label>
-          <Input
-            id="email"
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
-          />
+          <Input id="email" type="email" placeholder="Email" {...register('email')} />
           {errors.email && (
             <div className="absolute top-full left-0 mt-1">
-              <div className='className="absolute bg-background border-destructive text-destructive shadow-lg" top-1/4 left-full z-10 ml-2 w-max -translate-y-1/4 rounded border px-2 py-1 text-sm font-medium'>
-                {errors.email}
-              </div>
+              <Tooltip message={errors.email.message} />
             </div>
           )}
+        </div>
+        <div className="relative grid gap-2">
+          <Label htmlFor="name">Name</Label>
+          <div className="relative">
+            <Input id="Name" type="text" autoComplete="off" placeholder="Name" {...register('name')} />
+            {errors.name && (
+              <div className="absolute top-full left-0 mt-1">
+                <Tooltip message={errors.name.message} />
+              </div>
+            )}
+          </div>
         </div>
         <div className="relative grid gap-2">
           <Label htmlFor="password">Password</Label>
@@ -70,11 +83,9 @@ export default function RegistrationForm(): React.JSX.Element {
             <Input
               id="password"
               type={showPassword ? 'text' : 'password'}
-              name="password"
               autoComplete="off"
               placeholder="Password"
-              value={formData.password}
-              onChange={handleChange}
+              {...register('password')}
             />
             <button
               type="button"
@@ -85,9 +96,7 @@ export default function RegistrationForm(): React.JSX.Element {
             </button>
             {errors.password && (
               <div className="absolute top-full left-0 mt-1">
-                <div className='className="absolute bg-background border-destructive text-destructive shadow-lg" top-1/4 left-full z-10 ml-2 w-max -translate-y-1/4 rounded border px-2 py-1 text-sm font-medium'>
-                  {errors.password}
-                </div>
+                <Tooltip message={errors.password.message} />
               </div>
             )}
           </div>
@@ -98,11 +107,9 @@ export default function RegistrationForm(): React.JSX.Element {
             <Input
               id="confirmPassword"
               type={showConfirmPassword ? 'text' : 'password'}
-              name="confirmPassword"
               autoComplete="off"
               placeholder="Repeat password"
-              value={formData.confirmPassword}
-              onChange={handleChange}
+              {...register('confirmPassword')}
             />
             <button
               type="button"
@@ -113,15 +120,14 @@ export default function RegistrationForm(): React.JSX.Element {
             </button>
             {errors.confirmPassword && (
               <div className="absolute top-full left-0 mt-1">
-                <div className='className="absolute bg-background border-destructive text-destructive shadow-lg" top-1/4 left-full z-10 ml-2 w-max -translate-y-1/4 rounded border px-2 py-1 text-sm font-medium'>
-                  {errors.confirmPassword}
-                </div>
+                <Tooltip message={errors.confirmPassword.message} />
               </div>
             )}
           </div>
         </div>
-        <Button type="submit" className="w-full">
-          Next
+        {error ? <p className="text-destructive text-sm font-medium">{error}</p> : null}
+        <Button variant={'secondary'} type="submit" className="w-full">
+          {isSubmitting ? 'Send...' : 'Sign Up'}
         </Button>
       </div>
     </form>
