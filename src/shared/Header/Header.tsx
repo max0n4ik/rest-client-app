@@ -17,7 +17,7 @@ const Header = (): JSX.Element => {
         <Link to="/login" className="hover:text-secondary-foreground">
           {t('header.login')}
         </Link>
-        <Link to="/signup" className="hover:text-secondary-foreground">
+        <Link to="/registration" className="hover:text-secondary-foreground">
           {t('header.signup')}
         </Link>
       </nav>

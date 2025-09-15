@@ -51,12 +51,10 @@ const IncognitoHome = (): JSX.Element => {
             icon={<FontAwesomeIcon icon={faPaperPlane} style={{ fontSize: '2rem' }} />}
             description={String(t('homeIncognito.restAchievement'))}
           />
-          <li className="m-0 flex w-full list-none justify-center p-0 sm:col-span-3 sm:w-auto">
-            <AchievementCard
-              icon={<FontAwesomeIcon icon={faClockRotateLeft} style={{ fontSize: '2rem' }} />}
-              description={String(t('homeIncognito.historyAchievement'))}
-            />
-          </li>
+          <AchievementCard
+            icon={<FontAwesomeIcon icon={faClockRotateLeft} style={{ fontSize: '2rem' }} />}
+            description={String(t('homeIncognito.historyAchievement'))}
+          />
         </ul>
       </div>
     </>

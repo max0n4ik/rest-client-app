@@ -17,7 +17,8 @@ const NotFound = (): JSX.Element => {
           <h1 className="wrap m-0 mb-4 w-full text-center text-4xl font-bold">{t('notFound.title')}</h1>
           <p className="wrap m-0 mb-6 w-full p-4 text-center text-xl font-medium">{t('notFound.text')}</p>
           <Link
-            to={''}
+            replace
+            to="/"
             className="bg-secondary hover:bg-primary w-full cursor-pointer rounded px-6 py-2 font-semibold text-white shadow">
             {t('notFound.button')}
           </Link>
