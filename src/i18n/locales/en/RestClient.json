@@ -1,0 +1,19 @@
+{
+    "request": "Request",
+    "response": "Response",
+    "endpointUrl": "Endpoint URL",
+    "headers": "Headers",
+    "addHeader": "Add Header",
+    "headerKey": "Header Key",
+    "key": "Key",
+    "headerValue": "Header Value",
+    "value": "Value",
+    "requestBody": "Request Body",
+    "generatedCodeRequest": "Generated request code:",
+    "send": "Send Request",
+    "placeholder": "No response yet",
+    "status": "Status",
+    "sending": "Sending request...",
+    "error": "Error",
+    "zodValidation": "Enter a valid URL"
+}
