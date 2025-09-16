@@ -1,9 +1,20 @@
-import { Links, type LinksFunction, Meta, Outlet, Scripts, ScrollRestoration } from 'react-router';
-import './global.css';
+import {
+  isRouteErrorResponse,
+  Link,
+  Links,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+  type LinksFunction,
+} from 'react-router';
+import stylesheet from './global.css?url';
 import NotFound from './pages/NotFound';
 import './i18n';
-import Header from '@/shared/Header/Header';
-import Footer from '@/shared/Footer/Footer';
+import type { Route } from './+types/root';
+import { Toaster } from 'sonner';
+import { useEffect } from 'react';
+import { useAuthStore } from './store/AuthState';
 
 export const links: LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -16,6 +27,7 @@ export const links: LinksFunction = () => [
     rel: 'stylesheet',
     href: 'https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap',
   },
+  { rel: 'stylesheet', href: stylesheet },
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -29,6 +41,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         {children}
+        <Toaster position="bottom-center" richColors />
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -37,21 +50,39 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
+  const init = useAuthStore((s) => s.init);
+  useEffect(() => {
+    init();
+  }, [init]);
+  return <Outlet />;
+}
+
+export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
+  const message = 'Oops!';
+  let details = 'An unexpected error occurred.';
+  let stack: string | undefined;
+
+  if (isRouteErrorResponse(error)) {
+    if (error.status) {
+      return <NotFound />;
+    }
+  } else if (import.meta.env.DEV && error && error instanceof Error) {
+    details = error.message;
+    stack = error.stack;
+  }
   return (
-    <>
-      <Header />
-      <main className="flex-1">
-        <Outlet />
-      </main>
-      <Footer />
-    </>
+    <main className="container mx-auto p-4 pt-16">
+      <h1>{message}</h1>
+      <p>{details}</p>
+
+      {stack && (
+        <pre className="w-full overflow-x-auto p-4">
+          <code>{stack}</code>
+        </pre>
+      )}
+      <Link className="space-x-1.5 border p-3 shadow" to="/">
+        Back
+      </Link>
+    </main>
   );
-}
-
-export function HydrateFallback() {
-  return <div>Loading...</div>;
-}
-
-export function ErrorBoundary() {
-  return <NotFound />;
 }
