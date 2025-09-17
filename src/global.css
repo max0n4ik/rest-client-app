@@ -18,6 +18,13 @@ body {
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
   }
+
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
 }
 
 input:-webkit-autofill {
