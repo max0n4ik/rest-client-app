@@ -1,7 +1,7 @@
 import type { JSX } from 'react/jsx-runtime';
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLanguage, faBars } from '@fortawesome/free-solid-svg-icons';
+import { faLanguage, faBars, faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import { useAuthStore } from '@/store/AuthState';
@@ -9,6 +9,7 @@ import { useAuthStore } from '@/store/AuthState';
 const Header = (): JSX.Element => {
   const { t, i18n } = useTranslation('header');
   const login = useAuthStore((state) => state.user);
+  const logout = useAuthStore((state) => state.logout);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -63,6 +64,14 @@ const Header = (): JSX.Element => {
             className="hover:text-accent flex h-10 w-10 cursor-pointer items-center justify-center rounded border border-white hover:bg-gray-200">
             <FontAwesomeIcon icon={faLanguage} />
           </button>
+          {login && (
+            <button
+              onClick={logout}
+              className="hover:text-accent flex h-10 w-10 cursor-pointer items-center justify-center rounded border border-white hover:bg-gray-200"
+              aria-label="Logout">
+              <FontAwesomeIcon icon={faArrowRightToBracket} />
+            </button>
+          )}
           <button
             className="hover:text-accent flex h-10 w-10 cursor-pointer items-center justify-center rounded border border-white hover:bg-gray-200 md:hidden"
             onClick={() => setMenuOpen((open) => !open)}
