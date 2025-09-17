@@ -6,8 +6,8 @@ import footerEN from '../src/i18n/locales/en/Footer.json';
 import footerRU from '../src/i18n/locales/ru/Footer.json';
 import headerEN from '../src/i18n/locales/en/Header.json';
 import headerRU from '../src/i18n/locales/ru/Header.json';
-import NotFoundEN from '../src/i18n/locales/en/NotFound.json';
-import NotFoundRU from '../src/i18n/locales/ru/NotFound.json';
+import notFoundEN from '../src/i18n/locales/en/NotFound.json';
+import notFoundRU from '../src/i18n/locales/ru/NotFound.json';
 import restClientEN from '../src/i18n/locales/en/RestClient.json';
 import restClientRU from '../src/i18n/locales/ru/RestClient.json';
 import registrationEN from '../src/i18n/locales/en/Registration.json';
@@ -17,36 +17,35 @@ import zodValidationRU from '../src/i18n/locales/ru/ZodValidation.json';
 import loginEN from '../src/i18n/locales/en/Login.json';
 import loginRU from '../src/i18n/locales/ru/Login.json';
 
+const resources = {
+  en: {
+    home: homeEN,
+    footer: footerEN,
+    header: headerEN,
+    notFound: notFoundEN,
+    restClient: restClientEN,
+    registration: registrationEN,
+    zodValidation: zodValidationEN,
+    login: loginEN,
+  },
+  ru: {
+    home: homeRU,
+    footer: footerRU,
+    header: headerRU,
+    notFound: notFoundRU,
+    restClient: restClientRU,
+    registration: registrationRU,
+    zodValidation: zodValidationRU,
+    login: loginRU,
+  },
+};
+
 i18n.use(initReactI18next).init({
   defaultNS: 'home',
   fallbackLng: 'en',
   lng: 'en',
-  ns: ['home', 'footer', 'header', 'notFound', 'restClient', 'registration', 'zodRegistration'],
-  backend: {
-    loadPath: '../public/i18n/locales/{{lng}}/{{ns}}.json',
-  },
-  resources: {
-    en: {
-      home: homeEN,
-      footer: footerEN,
-      header: headerEN,
-      notFound: NotFoundEN,
-      restClient: restClientEN,
-      registration: registrationEN,
-      zodValidation: zodValidationEN,
-      login: loginEN,
-    },
-    ru: {
-      home: homeRU,
-      footer: footerRU,
-      header: headerRU,
-      notFound: NotFoundRU,
-      restClient: restClientRU,
-      registration: registrationRU,
-      zodValidation: zodValidationRU,
-      login: loginRU,
-    },
-  },
+  ns: ['home', 'footer', 'header', 'notFound', 'restClient', 'registration', 'zodValidation', 'login'],
+  resources,
 });
 
 export default i18n;
