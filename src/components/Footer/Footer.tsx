@@ -10,6 +10,30 @@ const Footer = (): JSX.Element => {
         <span className="primary-dark text-sm">
           {t('text')}
           <a
+            href="https://github.com/Darkonic10"
+            className="hover:text-accent ml-1 transition-colors"
+            target="_blank"
+            rel="noopener noreferrer">
+            {t('dmitriy')}
+          </a>
+          ,
+          <a
+            href="https://github.com/asyadanilova"
+            className="hover:text-accent ml-1 transition-colors"
+            target="_blank"
+            rel="noopener noreferrer">
+            {t('asya')}
+          </a>
+          ,
+          <a
+            href="https://github.com/max0n4ik"
+            className="hover:text-accent ml-1 transition-colors"
+            target="_blank"
+            rel="noopener noreferrer">
+            {t('maxim')}
+          </a>{' '}
+          {t('terms')}
+          <a
             href="https://rs.school/courses/reactjs"
             className="hover:text-accent ml-1 transition-colors"
             target="_blank"
