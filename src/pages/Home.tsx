@@ -36,7 +36,7 @@ export default function Home() {
             height: '100vh',
           }}
         />
-        <h1 className="wrap text-background absolute top-12 left-1/2 m-0 w-1/2 -translate-x-1/2 text-center text-4xl font-bold">
+        <h1 className="wrap text-accent absolute top-12 left-1/2 m-0 w-1/2 -translate-x-1/2 text-center text-4xl font-bold">
           {t('homeAuthorized.projectContributors')}
         </h1>
         <ul className="wrap absolute top-70 left-1/2 flex w-full max-w-screen-xl -translate-x-1/2 flex-col items-center gap-x-0 gap-y-8 text-left text-xl font-medium sm:grid sm:grid-cols-3 sm:items-stretch sm:gap-x-12 sm:gap-y-12">

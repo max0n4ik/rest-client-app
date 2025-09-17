@@ -17,8 +17,8 @@
       "contributor2": "Maxim",
       "contributor3": "Dmitriy",
       "contribution1": "Designed the app in Figma, developed the main page and not-found page, and shaped the user-friendly interface.",
-      "contribution2": "[Placeholder: Share contributions like building API handling or managing state and functionality.]",
-      "contribution3": "[Placeholder: Highlight work like backend integration or optimizing performance.]"
+      "contribution2": "He is the Team Leader, responsible for project configuration and development of authentication using Supabase, including the login and registration pages.",
+      "contribution3": "He built the RESTful client page, designed the variables and history pages, and successfully implemented API integration."
 
     }
 }

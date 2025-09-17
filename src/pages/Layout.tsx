@@ -14,6 +14,16 @@ export default function Layout() {
       '/rest-client': 'REST Client - RESTify',
     };
     document.title = titles[location.pathname] || 'RESTify';
+    const faviconUrl = '/favicon.ico';
+    const link: HTMLLinkElement | null = document.querySelector("link[rel~='icon']");
+    if (link) {
+      link.href = faviconUrl;
+    } else {
+      const newLink = document.createElement('link');
+      newLink.rel = 'icon';
+      newLink.href = faviconUrl;
+      document.head.appendChild(newLink);
+    }
   }, [location]);
   return (
     <>
