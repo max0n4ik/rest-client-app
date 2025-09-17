@@ -1,11 +1,10 @@
 {
-  "Login": "Login",
-  "name": {
-    "min": "Name must contain at least 3 characters",
-    "max": "Name is too long",
-    "uppercase": "First letter must be uppercase",
-    "lettersOnly": "Name must contain only letters without spaces and special characters",
-    "noSpaces": "Name must not contain leading or trailing spaces",
-    "tooShort": "Name is too short"
-  }
+  "title": "Login",
+  "email": "Email",
+  "password": "Password",
+  "login": "Login",
+  "loggingIn": "Logging In...",
+  "or": "or",
+  "haveNoAccount": "Don't have an account? ",
+  "signUp": "Sign Up"
 }

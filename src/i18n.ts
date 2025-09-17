@@ -10,12 +10,18 @@ import NotFoundEN from '../src/i18n/locales/en/NotFound.json';
 import NotFoundRU from '../src/i18n/locales/ru/NotFound.json';
 import restClientEN from '../src/i18n/locales/en/RestClient.json';
 import restClientRU from '../src/i18n/locales/ru/RestClient.json';
+import registrationEN from '../src/i18n/locales/en/Registration.json';
+import registrationRU from '../src/i18n/locales/ru/Registration.json';
+import zodValidationEN from '../src/i18n/locales/en/ZodValidation.json';
+import zodValidationRU from '../src/i18n/locales/ru/ZodValidation.json';
+import loginEN from '../src/i18n/locales/en/Login.json';
+import loginRU from '../src/i18n/locales/ru/Login.json';
 
 i18n.use(initReactI18next).init({
   defaultNS: 'home',
   fallbackLng: 'en',
   lng: 'en',
-  ns: ['home', 'footer', 'header', 'notFound', 'restClient'],
+  ns: ['home', 'footer', 'header', 'notFound', 'restClient', 'registration', 'zodRegistration'],
   backend: {
     loadPath: '../public/i18n/locales/{{lng}}/{{ns}}.json',
   },
@@ -26,6 +32,9 @@ i18n.use(initReactI18next).init({
       header: headerEN,
       notFound: NotFoundEN,
       restClient: restClientEN,
+      registration: registrationEN,
+      zodValidation: zodValidationEN,
+      login: loginEN,
     },
     ru: {
       home: homeRU,
@@ -33,6 +42,9 @@ i18n.use(initReactI18next).init({
       header: headerRU,
       notFound: NotFoundRU,
       restClient: restClientRU,
+      registration: registrationRU,
+      zodValidation: zodValidationRU,
+      login: loginRU,
     },
   },
 });

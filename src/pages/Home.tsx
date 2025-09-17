@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { useAuthStore } from '@/store/AuthState';
 import UserCard from '@/components/Home/UserCard/UserCard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClockRotateLeft, faLanguage, faMoon, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { faClockRotateLeft, faLanguage, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import AchievementCard from '@/components/Home/AchievementCard/AchievementCard';
 
 export default function Home() {
@@ -89,10 +89,10 @@ export default function Home() {
         <h1 className="wrap text-accent absolute top-12 left-1/2 m-0 w-1/2 -translate-x-1/2 text-center text-4xl font-bold">
           {t('homeIncognito.projectAchievements')}
         </h1>
-        <ul className="wrap absolute top-70 left-1/2 grid w-full max-w-screen-xl -translate-x-1/2 grid-cols-3 gap-x-12 gap-y-12 text-left text-xl font-medium">
+        <ul className="wrap absolute top-70 left-1/2 flex w-full max-w-screen-xl -translate-x-1/2 flex-col gap-x-12 gap-y-12 text-center text-xl font-medium sm:grid sm:grid-cols-3">
           <AchievementCard
-            icon={<FontAwesomeIcon icon={faMoon} style={{ fontSize: '2rem' }} />}
-            description={String(t('homeIncognito.themeAchievement'))}
+            icon={<FontAwesomeIcon icon={faClockRotateLeft} style={{ fontSize: '2rem' }} />}
+            description={String(t('homeIncognito.historyAchievement'))}
           />
           <AchievementCard
             icon={<FontAwesomeIcon icon={faLanguage} style={{ fontSize: '2rem' }} />}
@@ -102,12 +102,6 @@ export default function Home() {
             icon={<FontAwesomeIcon icon={faPaperPlane} style={{ fontSize: '2rem' }} />}
             description={String(t('homeIncognito.restAchievement'))}
           />
-          <li className="col-start-2 m-0 flex list-none justify-center p-0">
-            <AchievementCard
-              icon={<FontAwesomeIcon icon={faClockRotateLeft} style={{ fontSize: '2rem' }} />}
-              description={String(t('homeIncognito.historyAchievement'))}
-            />
-          </li>
         </ul>
       </div>
     </>

@@ -3,8 +3,10 @@ import { Link } from 'react-router';
 import RegistrationForm from 'src/components/Signin/registration-form';
 import type { Route } from '../../+types/root';
 import { getServerClient } from '@/api/server';
+import { useTranslation } from 'react-i18next';
 
 export default function Registration(): React.JSX.Element {
+  const { t } = useTranslation('registration');
   return (
     <div className="grid min-h-svh lg:grid-cols-2">
       <div className="flex flex-col gap-4 p-6 md:p-10">
@@ -14,13 +16,13 @@ export default function Registration(): React.JSX.Element {
           </div>
           <div className="mt-6 flex items-center text-sm text-gray-500">
             <div className="h-px w-[140px] bg-gray-300" />
-            <span className="px-3">or</span>
+            <span className="px-3">{t('or')}</span>
             <div className="h-px w-[140px] bg-gray-300" />
           </div>
           <div className="text-center text-sm">
-            Have an account?{' '}
+            {t('haveAccount')}{' '}
             <Link to="/login" className="text-primary hover:text-accent">
-              Sign in
+              {t('signIn')}
             </Link>
           </div>
         </div>

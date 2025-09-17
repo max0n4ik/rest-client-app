@@ -17,16 +17,9 @@ import { useTranslation } from 'react-i18next';
 const METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'] as const;
 type Method = (typeof METHODS)[number];
 
-export function RequestForm({
-  onSend,
-}: {
-  onSend: (url: string, method: string, headers: Record<string, string>, body?: BodyInit) => void;
-}) {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const { t } = useTranslation('restClient');
-
-  const requestSchema = z.object({
-    url: z.string().url(t('zodValidation')),
+function createRequestSchema(urlMessage: string) {
+  return z.object({
+    url: z.string().url(urlMessage),
     method: z.enum(METHODS),
     headers: z.array(
       z.object({
@@ -36,8 +29,18 @@ export function RequestForm({
     ),
     body: z.string().optional(),
   });
+}
 
-  type FormData = z.infer<typeof requestSchema>;
+export function RequestForm({
+  onSend,
+}: {
+  onSend: (url: string, method: string, headers: Record<string, string>, body?: BodyInit) => void;
+}) {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { t } = useTranslation('restClient');
+
+  const requestSchema = createRequestSchema(t('zodValidation'));
+  type FormData = z.infer<ReturnType<typeof createRequestSchema>>;
 
   const paramMethod = searchParams.get('method')?.toUpperCase() as Method | null;
   const paramUrl = searchParams.get('url') ? atob(searchParams.get('url') ?? '') : '';
