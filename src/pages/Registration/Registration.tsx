@@ -1,9 +1,18 @@
-import { Link } from 'react-router';
+import { Link, redirect, type LoaderFunctionArgs } from 'react-router';
 
 import RegistrationForm from 'src/components/Signin/registration-form';
-import type { Route } from '../../+types/root';
+
 import { getServerClient } from '@/api/server';
 import { useTranslation } from 'react-i18next';
+
+export async function loader({ request }: LoaderFunctionArgs) {
+  const { client, headers } = getServerClient(request);
+  const { data } = await client.auth.getSession();
+  if (data.session) {
+    throw redirect('/', { headers });
+  }
+  return null;
+}
 
 export default function Registration(): React.JSX.Element {
   const { t } = useTranslation('registration');
@@ -39,25 +48,4 @@ export default function Registration(): React.JSX.Element {
       </div>
     </div>
   );
-}
-
-export async function action({ request }: Route.ActionArgs) {
-  const formData = await request.formData();
-  const email = String(formData.get('email') ?? '');
-  const password = String(formData.get('password') ?? '');
-
-  const { client, headers } = getServerClient(request);
-  const { error } = await client.auth.signUp({ email, password });
-
-  if (error) {
-    return new Response(JSON.stringify({ error: error.message }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json', ...Object.fromEntries(headers) },
-    });
-  }
-
-  return new Response(JSON.stringify({ message: 'Check your email to confirm registration' }), {
-    status: 200,
-    headers: { 'Content-Type': 'application/json', ...Object.fromEntries(headers) },
-  });
 }

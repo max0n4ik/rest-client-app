@@ -1,7 +1,18 @@
+import { getServerClient } from '@/api/server';
 import { RequestForm } from '@/components/requestForm';
 import { ResponseViewer } from '@/components/responseViewer';
 import { useRestClient } from '@/hooks/useRestClient';
 import { useTranslation } from 'react-i18next';
+import { redirect, type LoaderFunctionArgs } from 'react-router';
+
+export async function loader({ request }: LoaderFunctionArgs) {
+  const { client, headers } = getServerClient(request);
+  const { data } = await client.auth.getSession();
+  if (!data.session) {
+    throw redirect('/', { headers });
+  }
+  return null;
+}
 
 export default function RestfulClient() {
   const { loading, response, error, sendRequest } = useRestClient();

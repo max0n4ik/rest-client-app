@@ -1,4 +1,4 @@
-import type { LoginData } from '@/utils/schema';
+import type { LoginData, RegistrationData } from '@/utils/schema';
 import { create } from 'zustand';
 import type { Session, User } from '@supabase/supabase-js';
 import { createClient } from '@/api/client';
@@ -14,6 +14,7 @@ interface AuthStoreState {
 interface AuthStoreActions {
   init: () => Promise<void>;
   login: (data: LoginData) => Promise<string | null>;
+  register: (data: RegistrationData) => Promise<string | null>;
   logout: () => Promise<void>;
   clearError: () => void;
 }
@@ -50,6 +51,33 @@ export const useAuthStore = create<AuthStore>((set) => ({
         set({ error: error.message, loading: false });
         return error.message;
       }
+      set({ loading: false, error: null });
+      return null;
+    } catch (e) {
+      const message = e instanceof Error ? e.message : 'Unknown error';
+      set({ error: message, loading: false });
+      return message;
+    }
+  },
+
+  async register(formData) {
+    set({ loading: true, error: null });
+    try {
+      const supabase = createClient();
+      const { error: signUpError } = await supabase.auth.signUp({
+        email: formData.email,
+        password: formData.password,
+        options: {
+          data: {
+            first_name: formData.name,
+          },
+        },
+      });
+      if (signUpError) {
+        set({ error: signUpError.message, loading: false });
+        return signUpError.message;
+      }
+
       set({ loading: false, error: null });
       return null;
     } catch (e) {

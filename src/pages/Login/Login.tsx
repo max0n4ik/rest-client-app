@@ -3,7 +3,17 @@ import React from 'react';
 import LoginForm from '@/components/Login/login-form';
 import { useTranslation } from 'react-i18next';
 
-import { Link } from 'react-router';
+import { Link, redirect, type LoaderFunctionArgs } from 'react-router';
+import { getServerClient } from '@/api/server';
+
+export async function loader({ request }: LoaderFunctionArgs) {
+  const { client, headers } = getServerClient(request);
+  const { data } = await client.auth.getSession();
+  if (data.session) {
+    throw redirect('/', { headers });
+  }
+  return null;
+}
 
 export default function LoginPage(): React.JSX.Element {
   const { t } = useTranslation('login');
