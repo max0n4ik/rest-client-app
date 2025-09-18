@@ -10,10 +10,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, type FieldValues } from 'react-hook-form';
 import { useFetcher, useNavigate } from 'react-router';
 import { toast } from 'sonner';
-import { registrationScheme } from '@/utils/schema';
+import { createRegistrationSchema } from '@/utils/schema';
 import { Tooltip } from '../ui/error-message';
+import { useTranslation } from 'react-i18next';
 
 export default function RegistrationForm(): React.JSX.Element {
+  const { t } = useTranslation('registration');
+  const { t: tValidation } = useTranslation('zodValidation');
   const fetcher = useFetcher();
   const navigate = useNavigate();
   const {
@@ -21,7 +24,10 @@ export default function RegistrationForm(): React.JSX.Element {
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm({ mode: 'onBlur', resolver: zodResolver(registrationScheme) });
+  } = useForm({
+    mode: 'onBlur',
+    resolver: zodResolver(createRegistrationSchema(tValidation as (key: string) => string)),
+  });
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -50,13 +56,13 @@ export default function RegistrationForm(): React.JSX.Element {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={cn('flex flex-col gap-6')}>
       <div className="flex flex-col items-center gap-2 text-center">
-        <h1 className="text-2xl font-bold capitalize">Get started now</h1>
-        <p className="text-muted-foreground text-sm text-balance">Enter your Credentials to create your account</p>
+        <h1 className="text-2xl font-bold capitalize">{t('title')}</h1>
+        <p className="text-muted-foreground text-sm text-balance">{t('subtitle')}</p>
       </div>
       <div className="grid gap-6">
         <div className="relative grid gap-2">
-          <Label htmlFor="email">Email</Label>
-          <Input id="email" type="email" placeholder="Email" {...register('email')} />
+          <Label htmlFor="email">{t('email')}</Label>
+          <Input id="email" type="email" placeholder={t('email')} {...register('email')} />
           {errors.email && (
             <div className="absolute top-full left-0 mt-1">
               <Tooltip message={errors.email.message} />
@@ -64,9 +70,9 @@ export default function RegistrationForm(): React.JSX.Element {
           )}
         </div>
         <div className="relative grid gap-2">
-          <Label htmlFor="name">Name</Label>
+          <Label htmlFor="name">{t('name')}</Label>
           <div className="relative">
-            <Input id="name" type="text" autoComplete="off" placeholder="Name" {...register('name')} />
+            <Input id="name" type="text" autoComplete="off" placeholder={t('name')} {...register('name')} />
             {errors.name && (
               <div className="absolute top-full left-0 mt-1">
                 <Tooltip message={errors.name.message} />
@@ -75,13 +81,13 @@ export default function RegistrationForm(): React.JSX.Element {
           </div>
         </div>
         <div className="relative grid gap-2">
-          <Label htmlFor="password">Password</Label>
+          <Label htmlFor="password">{t('password')}</Label>
           <div className="relative">
             <Input
               id="password"
               type={showPassword ? 'text' : 'password'}
               autoComplete="off"
-              placeholder="Password"
+              placeholder={t('password')}
               {...register('password')}
             />
             <button
@@ -99,13 +105,13 @@ export default function RegistrationForm(): React.JSX.Element {
           </div>
         </div>
         <div className="relative grid gap-2">
-          <Label htmlFor="confirmPassword">Repeat password</Label>
+          <Label htmlFor="confirmPassword">{t('repeatPassword')}</Label>
           <div className="relative">
             <Input
               id="confirmPassword"
               type={showConfirmPassword ? 'text' : 'password'}
               autoComplete="off"
-              placeholder="Repeat password"
+              placeholder={t('repeatPassword')}
               {...register('confirmPassword')}
             />
             <button
@@ -124,7 +130,7 @@ export default function RegistrationForm(): React.JSX.Element {
         </div>
         {error ? <p className="text-destructive text-sm font-medium">{error}</p> : null}
         <Button variant={'secondary'} type="submit" className="w-full">
-          {isSubmitting ? 'Send...' : 'Sign Up'}
+          {isSubmitting ? t('signingUp') : t('signUp')}
         </Button>
       </div>
     </form>

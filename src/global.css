@@ -18,6 +18,13 @@ body {
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
   }
+
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
 }
 
 input:-webkit-autofill {
@@ -68,7 +75,7 @@ input:-webkit-autofill {
 
 :root {
   --radius: 0.625rem;
-  --background: #a8d0e6;
+  --background: #ffffff;
   --foreground: #24305e;
   --card: oklch(1 0 0);
   --card-foreground: #0f172a;
@@ -78,10 +85,10 @@ input:-webkit-autofill {
   --primary: #0f172a;
   --primary-foreground: oklch(0.984 0.003 247.858);
   --secondary: #374785;
-  --secondary-foreground: #ffff;
+  --secondary-foreground: #ffffff;
   --muted: oklch(0.968 0.007 247.896);
   --muted-foreground: #0f172a;
-  --accent: oklch(0.968 0.007 247.896);
+  --accent: #a8d0e6;
   --accent-foreground: #0f172a;
   --destructive: #f76c6c;
   --border: oklch(0.929 0.013 255.508);
@@ -103,10 +110,11 @@ input:-webkit-autofill {
 }
 
 .dark {
-  --background: oklch(0.129 0.042 264.695);
-  --foreground: oklch(0.984 0.003 247.858);
-  --card: oklch(0.208 0.042 265.755);
-  --card-foreground: oklch(0.984 0.003 247.858);
+  --radius: 0.625rem;
+  --background: #24305e;
+  --foreground: #ffffff;
+  --card: #0f172a;
+  --card-foreground: #ffffff;
   --card-30: rgba(255, 255, 255, 0.31);
   --popover: oklch(0.208 0.042 265.755);
   --popover-foreground: oklch(0.984 0.003 247.858);

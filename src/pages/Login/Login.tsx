@@ -1,12 +1,15 @@
 import React from 'react';
 
 import LoginForm from '@/components/Login/login-form';
+import { useTranslation } from 'react-i18next';
 
 import { Link } from 'react-router';
 
 export default function LoginPage(): React.JSX.Element {
+  const { t } = useTranslation('login');
+
   return (
-    <div className="grid min-h-svh lg:grid-cols-2">
+    <div className="grid min-h-full lg:grid-cols-2">
       <div className="flex flex-col gap-4 p-6 md:p-10">
         <div className="flex flex-1 flex-col items-center justify-center">
           <div className="w-full max-w-xs">
@@ -14,13 +17,13 @@ export default function LoginPage(): React.JSX.Element {
           </div>
           <div className="mt-6 flex items-center text-sm text-gray-500">
             <div className="h-px w-[140px] bg-gray-300" />
-            <span className="px-3">or</span>
+            <span className="px-3">{t('or')}</span>
             <div className="h-px w-[140px] bg-gray-300" />
           </div>
           <div className="text-center text-sm">
-            Don&apos;t have an account?{' '}
+            {t('haveNoAccount')}{' '}
             <Link to="/registration" className="text-primary hover:text-accent">
-              Sign Up
+              {t('signUp')}
             </Link>
           </div>
         </div>

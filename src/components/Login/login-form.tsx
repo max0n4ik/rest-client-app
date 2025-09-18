@@ -8,13 +8,16 @@ import { cn } from '@/utils/utils';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router';
-import { loginScheme } from '@/utils/schema';
+import { createLoginSchema } from '@/utils/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, type FieldValues } from 'react-hook-form';
 import { useAuthStore } from '@/store/AuthState';
 import { Tooltip } from '../ui/error-message';
+import { useTranslation } from 'react-i18next';
 
 export default function LoginForm({ className, ...props }: React.ComponentPropsWithoutRef<'form'>): React.JSX.Element {
+  const { t } = useTranslation('login');
+  const { t: tValidation } = useTranslation('zodValidation');
   const login = useAuthStore((state) => state.login);
   const storeError = useAuthStore((state) => state.error);
   const clearError = useAuthStore((state) => state.clearError);
@@ -27,7 +30,10 @@ export default function LoginForm({ className, ...props }: React.ComponentPropsW
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm({ mode: 'onBlur', resolver: zodResolver(loginScheme) });
+  } = useForm({
+    mode: 'onBlur',
+    resolver: zodResolver(createLoginSchema(tValidation as (key: string) => string)),
+  });
 
   useEffect(() => {
     setError(storeError);
@@ -48,16 +54,16 @@ export default function LoginForm({ className, ...props }: React.ComponentPropsW
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={cn('flex flex-col gap-6', className)} {...props}>
       <div className="flex flex-col items-center gap-2 text-center">
-        <h1 className="font-serif text-[30px]">Login</h1>
+        <h1 className="font-serif text-[30px]">{t('title')}</h1>
       </div>
 
       <div className="grid gap-6">
         <div className="relative grid gap-2">
-          <Label htmlFor="email">Email</Label>
+          <Label htmlFor="email">{t('email')}</Label>
           <Input
             id="email"
             type="email"
-            placeholder="Email"
+            placeholder={t('email')}
             required
             aria-describedby="email-error"
             {...register('email')}
@@ -70,7 +76,7 @@ export default function LoginForm({ className, ...props }: React.ComponentPropsW
         </div>
         <div className="relative grid gap-2">
           <div className="relative">
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password">{t('password')}</Label>
             <div className="relative">
               <Input
                 id="password"
@@ -79,7 +85,7 @@ export default function LoginForm({ className, ...props }: React.ComponentPropsW
                 required
                 aria-describedby="password-error"
                 className="pr-10"
-                placeholder="Password"
+                placeholder={t('password')}
                 {...register('password')}
               />
               <button
@@ -100,7 +106,7 @@ export default function LoginForm({ className, ...props }: React.ComponentPropsW
         {error ? <p className="text-destructive text-sm font-medium">{error}</p> : null}
 
         <Button variant={'secondary'} type="submit" className="w-full" aria-disabled={isSubmitting || loading}>
-          {isSubmitting || loading ? 'Logging in...' : 'Login'}
+          {isSubmitting || loading ? t('loggingIn') : t('login')}
         </Button>
       </div>
     </form>

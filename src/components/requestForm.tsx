@@ -12,23 +12,24 @@ import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { Label } from '@/components/ui/label';
 import { useSearchParams } from 'react-router';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'] as const;
 type Method = (typeof METHODS)[number];
 
-const requestSchema = z.object({
-  url: z.url('Введите корректный URL'),
-  method: z.enum(METHODS),
-  headers: z.array(
-    z.object({
-      key: z.string(),
-      value: z.string(),
-    })
-  ),
-  body: z.string().optional(),
-});
-
-type FormData = z.infer<typeof requestSchema>;
+function createRequestSchema(urlMessage: string) {
+  return z.object({
+    url: z.string().url(urlMessage),
+    method: z.enum(METHODS),
+    headers: z.array(
+      z.object({
+        key: z.string(),
+        value: z.string(),
+      })
+    ),
+    body: z.string().optional(),
+  });
+}
 
 export function RequestForm({
   onSend,
@@ -36,6 +37,10 @@ export function RequestForm({
   onSend: (url: string, method: string, headers: Record<string, string>, body?: BodyInit) => void;
 }) {
   const [searchParams, setSearchParams] = useSearchParams();
+  const { t } = useTranslation('restClient');
+
+  const requestSchema = createRequestSchema(t('zodValidation'));
+  type FormData = z.infer<ReturnType<typeof createRequestSchema>>;
 
   const paramMethod = searchParams.get('method')?.toUpperCase() as Method | null;
   const paramUrl = searchParams.get('url') ? atob(searchParams.get('url') ?? '') : '';
@@ -142,7 +147,7 @@ export function RequestForm({
               name="url"
               render={({ field }) => (
                 <FormItem className="flex-1">
-                  <Label htmlFor="url">Endpoint URL</Label>
+                  <Label htmlFor="url">{t('endpointUrl')}</Label>
                   <FormControl>
                     <Input id="url" placeholder="https://api.example.com/resource" {...field} />
                   </FormControl>
@@ -155,9 +160,9 @@ export function RequestForm({
 
         <Card className="space-y-3 border-transparent bg-transparent shadow-none">
           <div className="flex items-center justify-between">
-            <FormLabel className="text-2xl">Header(s)</FormLabel>
+            <FormLabel className="text-2xl">{t('headers')}</FormLabel>
             <Button type="button" variant="default" size="sm" onClick={() => append({ key: '', value: '' })}>
-              Add Header
+              {t('addHeader')}
             </Button>
           </div>
 
@@ -168,9 +173,9 @@ export function RequestForm({
                 name={`headers.${index}.key`}
                 render={({ field }) => (
                   <FormItem className="flex-1">
-                    <Label htmlFor={`headers.${index}.key`}>Header Key</Label>
+                    <Label htmlFor={`headers.${index}.key`}>{t('headerKey')}</Label>
                     <FormControl>
-                      <Input id={`headers.${index}.key`} placeholder="Key" {...field} />
+                      <Input id={`headers.${index}.key`} placeholder={t('key')} {...field} />
                     </FormControl>
                   </FormItem>
                 )}
@@ -180,9 +185,9 @@ export function RequestForm({
                 name={`headers.${index}.value`}
                 render={({ field }) => (
                   <FormItem className="flex-1">
-                    <Label htmlFor={`headers.${index}.value`}>Header Value</Label>
+                    <Label htmlFor={`headers.${index}.value`}>{t('headerValue')}</Label>
                     <FormControl>
-                      <Input id={`headers.${index}.value`} placeholder="Value" {...field} />
+                      <Input id={`headers.${index}.value`} placeholder={t('value')} {...field} />
                     </FormControl>
                   </FormItem>
                 )}
@@ -201,7 +206,7 @@ export function RequestForm({
               name="body"
               render={({ field }) => (
                 <FormItem className="space-y-3">
-                  <FormLabel className="block text-2xl">Request Body</FormLabel>
+                  <FormLabel className="block text-2xl">{t('requestBody')}</FormLabel>
                   <FormControl>
                     <Textarea placeholder="JSON body" className="h-48 font-mono text-xs" {...field} />
                   </FormControl>
@@ -213,14 +218,14 @@ export function RequestForm({
         )}
 
         <div className="text-primary space-y-3">
-          <FormLabel className="block text-2xl">Generated request code:</FormLabel>
+          <FormLabel className="block text-2xl">{t('generatedCodeRequest')}</FormLabel>
           <Card className="shadow-non border-card-foreground bg-card-30 p-4 font-mono text-xs whitespace-pre-wrap">
             <pre>{generatedCode}</pre>
           </Card>
         </div>
 
         <Button type="submit" disabled={!form.formState.isValid}>
-          Send Request
+          {t('send')}
         </Button>
       </form>
     </Form>
