@@ -15,6 +15,7 @@ import type { Route } from './+types/root';
 import { Toaster } from 'sonner';
 import { useEffect } from 'react';
 import { useAuthStore } from './store/AuthState';
+import i18n from './i18n';
 
 export const links: LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -47,6 +48,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </body>
     </html>
   );
+}
+
+export async function clientLoader() {
+  const lang = localStorage.getItem('Language') ?? 'en';
+  i18n.changeLanguage(lang);
 }
 
 export default function App() {
