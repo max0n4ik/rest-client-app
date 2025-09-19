@@ -31,7 +31,6 @@ export default function LoginForm({ className, ...props }: React.ComponentPropsW
     reset,
     formState: { errors, isSubmitting },
   } = useForm({
-    mode: 'onBlur',
     resolver: zodResolver(createLoginSchema(tValidation as (key: string) => string)),
   });
 

@@ -15,7 +15,7 @@ export function createLoginSchema(t: (key: string) => string) {
 export function createRegistrationSchema(t: (key: string) => string) {
   return z
     .object({
-      email: z.string().email(t('zodValidation:email_invalid')),
+      email: z.email(t('zodValidation:email_invalid')),
       name: z
         .string()
         .min(3, { message: t('zodValidation:name_min') })
@@ -41,4 +41,4 @@ export function createRegistrationSchema(t: (key: string) => string) {
 }
 
 export type LoginData = z.infer<ReturnType<typeof createLoginSchema>>;
-export type RegistrationData = z.infer<ReturnType<typeof createRegistrationSchema>>;
+export type RegistrationData = Omit<z.infer<ReturnType<typeof createRegistrationSchema>>, 'confirmPassword'>;

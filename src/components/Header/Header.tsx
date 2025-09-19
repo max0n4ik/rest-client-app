@@ -22,7 +22,9 @@ const Header = (): JSX.Element => {
   }, []);
 
   const changeLanguageHandler = () => {
-    i18n.changeLanguage(i18n.language === 'en' ? 'ru' : 'en');
+    const lang = i18n.language === 'en' ? 'ru' : 'en';
+    i18n.changeLanguage(lang);
+    localStorage.setItem('Language', lang);
   };
 
   return (

@@ -8,24 +8,24 @@ import { cn } from '@/utils/utils';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, type FieldValues } from 'react-hook-form';
-import { useFetcher, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 import { toast } from 'sonner';
 import { createRegistrationSchema } from '@/utils/schema';
 import { Tooltip } from '../ui/error-message';
 import { useTranslation } from 'react-i18next';
+import { useAuthStore } from '@/store/AuthState';
 
 export default function RegistrationForm(): React.JSX.Element {
   const { t } = useTranslation('registration');
   const { t: tValidation } = useTranslation('zodValidation');
-  const fetcher = useFetcher();
   const navigate = useNavigate();
+  const registerUser = useAuthStore((s) => s.register);
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
   } = useForm({
-    mode: 'onBlur',
     resolver: zodResolver(createRegistrationSchema(tValidation as (key: string) => string)),
   });
 
@@ -34,29 +34,25 @@ export default function RegistrationForm(): React.JSX.Element {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (fetcher.data && typeof fetcher.data === 'object') {
-      const payload = fetcher.data as { error?: string | null; message?: string };
-      if (payload.error) {
-        setError(payload.error);
-      } else {
-        setError(null);
-        if (payload.message) {
-          reset();
-          toast.success('Successfully registered');
-          navigate('/');
-        }
-      }
-    }
-  }, [fetcher.data, reset, navigate]);
+    setError(null);
+  }, []);
 
-  const onSubmit = (FormData: FieldValues) => {
-    fetcher.submit(FormData as Record<string, string>, { method: 'post', action: '/registration' });
+  const onSubmit = async (FormData: FieldValues) => {
+    const { email, password, name } = FormData as { email: string; password: string; name: string };
+    const err = await registerUser({ email, password, name });
+    if (err) {
+      setError(err);
+      return;
+    }
+    reset();
+    toast.success('Successfully registered');
+    navigate('/');
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={cn('flex flex-col gap-6')}>
       <div className="flex flex-col items-center gap-2 text-center">
-        <h1 className="text-2xl font-bold capitalize">{t('title')}</h1>
+        <h1 className="text-2xl font-bold">{t('title')}</h1>
         <p className="text-muted-foreground text-sm text-balance">{t('subtitle')}</p>
       </div>
       <div className="grid gap-6">
