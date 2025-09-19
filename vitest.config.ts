@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitest/config';
+import path from 'path';
 
 export default defineConfig({
   test: {
@@ -14,7 +15,7 @@ export default defineConfig({
         'src/**/*.test.{js,jsx,ts,tsx}',
         'src/**/*.spec.{js,jsx,ts,tsx}',
         'src/main.{js,jsx,ts,tsx}',
-        'src/setupTests.{js,ts}',
+        '/vitest.setup.ts',
         'src/**/*.d.ts',
         'node_modules/**/',
       ],
@@ -26,6 +27,11 @@ export default defineConfig({
         perFile: true,
         autoUpdate: true,
       },
+    },
+  },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
     },
   },
 });

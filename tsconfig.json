@@ -1,5 +1,5 @@
 {
-  "include": ["src", "@types", ".react-router/types/**/*"],
+  "include": ["src", "@types", ".react-router/types/**/*", "vitest.setup.ts"],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "types": ["node", "vite/client"],

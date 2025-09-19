@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLanguage, faBars, faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
-import { useAuthStore } from '@/store/AuthState';
+import { useAuthStore } from '../../store/AuthState';
 
 const Header = (): JSX.Element => {
   const { t, i18n } = useTranslation('header');

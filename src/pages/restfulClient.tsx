@@ -1,5 +1,5 @@
 import { getServerClient } from '@/api/server';
-import { RequestForm } from '@/components/requestForm';
+import { RequestForm } from '@/components/RequestForm/requestForm';
 import { ResponseViewer } from '@/components/responseViewer';
 import { useRestClient } from '@/hooks/useRestClient';
 import { useTranslation } from 'react-i18next';
