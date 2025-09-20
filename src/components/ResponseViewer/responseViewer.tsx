@@ -73,10 +73,8 @@ export function ResponseViewer({
         {' '}
         <div className="flex items-center gap-2">
           {' '}
-          <label htmlFor="status" className="w-16 text-sm font-medium">
-            {t('status')}
-          </label>{' '}
-          <Input id="status" value={response.status} readOnly />{' '}
+          <label className="w-16 text-sm font-medium">{t('status')}</label>{' '}
+          <Input value={response.status} readOnly />{' '}
         </div>{' '}
         <div className="h-full">
           {' '}

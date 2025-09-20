@@ -27,9 +27,7 @@ export default [
     settings: {
       react: { version: 'detect' },
       'import/resolver': {
-        typescript: { alwaysTryTypes: true,
-             project: './tsconfig.json',
-            },
+        typescript: { alwaysTryTypes: true, project: './tsconfig.json' },
         node: { paths: ['src'], extensions: ['.js', '.jsx', '.ts', '.tsx'] },
       },
     },
