@@ -7,7 +7,7 @@ import {
   Scripts,
   ScrollRestoration,
   type LinksFunction,
-} from 'react-router-dom';
+} from 'react-router';
 import stylesheet from './global.css?url';
 import NotFound from './pages/NotFound/NotFound';
 import i18n from './i18n';
