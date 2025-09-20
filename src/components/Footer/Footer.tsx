@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-const Footer: React.FC = () => {
+const Footer = (): JSX.Element => {
   const { t } = useTranslation('footer');
   return (
     <footer className="w-full border-t py-3">
