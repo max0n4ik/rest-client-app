@@ -1,31 +1,22 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import UserCard from './UserCard';
-
 describe('UserCard', () => {
-  const props = {
-    photo: 'https://example.com/photo.jpg',
-    name: 'Jane Doe',
-    description: 'A passionate developer.',
-  };
-
+  const props = { photo: 'https://example.com/photo.jpg', name: 'Jane Doe', description: 'A passionate developer.' };
   it('renders the user name', () => {
     render(<UserCard {...props} />);
     expect(screen.getByText(props.name)).toBeInTheDocument();
   });
-
   it('renders the user description', () => {
     render(<UserCard {...props} />);
     expect(screen.getByText(props.description)).toBeInTheDocument();
   });
-
   it('renders the user photo with correct src and alt', () => {
     render(<UserCard {...props} />);
     const img = screen.getByRole('img');
     expect(img).toHaveAttribute('src', props.photo);
     expect(img).toHaveAttribute('alt', props.name);
   });
-
   it('applies correct class names to elements', () => {
     render(<UserCard {...props} />);
     const li = screen.getByRole('listitem');

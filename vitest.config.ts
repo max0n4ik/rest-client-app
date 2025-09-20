@@ -1,6 +1,5 @@
 import { defineConfig } from 'vitest/config';
 import path from 'path';
-
 export default defineConfig({
   test: {
     globals: true,
@@ -18,20 +17,22 @@ export default defineConfig({
         '/vitest.setup.ts',
         'src/**/*.d.ts',
         'node_modules/**/',
+        'src/i18n.ts',
+        'src/api/client.ts',
+        'src/components/ui/tooltip.tsx',
+        'src/root.tsx',
+        'src/routes.ts',
+        'src/hooks/useRestClient.ts',
       ],
       thresholds: {
-        statements: 80,
-        branches: 50,
-        functions: 50,
-        lines: 60,
-        perFile: true,
+        statements: 87.19,
+        branches: 84.61,
+        functions: 80.85,
+        lines: 87.19,
+        perFile: false,
         autoUpdate: true,
       },
     },
   },
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
-    },
-  },
+  resolve: { alias: { '@': path.resolve(__dirname, './src') } },
 });

@@ -16,7 +16,6 @@ import zodValidationEN from '../src/i18n/locales/en/ZodValidation.json';
 import zodValidationRU from '../src/i18n/locales/ru/ZodValidation.json';
 import loginEN from '../src/i18n/locales/en/Login.json';
 import loginRU from '../src/i18n/locales/ru/Login.json';
-
 const resources = {
   en: {
     home: homeEN,
@@ -39,7 +38,6 @@ const resources = {
     login: loginRU,
   },
 };
-
 i18n.use(initReactI18next).init({
   defaultNS: 'home',
   fallbackLng: 'en',
@@ -47,5 +45,4 @@ i18n.use(initReactI18next).init({
   ns: ['home', 'footer', 'header', 'notFound', 'restClient', 'registration', 'zodValidation', 'login'],
   resources,
 });
-
 export default i18n;

@@ -1,11 +1,9 @@
 import Footer from '@/components/Footer/Footer';
 import Header from '@/components/Header/Header';
 import { useEffect } from 'react';
-import { Outlet, useLocation } from 'react-router';
-
+import { Outlet, useLocation } from 'react-router-dom';
 export default function Layout() {
   const location = useLocation();
-
   useEffect(() => {
     const titles: Record<string, string> = {
       '/': 'Home Page - RESTify',
@@ -14,28 +12,26 @@ export default function Layout() {
       '/rest-client': 'REST Client - RESTify',
     };
     document.title = titles[location.pathname] || 'RESTify';
-
     const faviconUrl = '/favicon.ico';
-    function setFavicon(url: string) {
-      let link = document.querySelector<HTMLLinkElement>("link[rel~='icon']");
-      if (!link) {
-        link = document.createElement('link');
-        link.rel = 'icon';
-        document.head.appendChild(link);
-      }
-      if (link.href !== window.location.origin + url) {
-        link.href = url;
-      }
+    let link = document.querySelector<HTMLLinkElement>("link[rel~='icon']");
+    if (!link) {
+      link = document.createElement('link');
+      link.rel = 'icon';
+      link.href = faviconUrl;
+      document.head.appendChild(link);
+    } else if (link.href !== window.location.origin + faviconUrl) {
+      link.href = faviconUrl;
     }
-    setFavicon(faviconUrl);
-  }, [location]);
+  }, [location.pathname]);
   return (
     <>
-      <Header />
+      {' '}
+      <Header />{' '}
       <main className="flex-1">
-        <Outlet />
-      </main>
-      <Footer />
+        {' '}
+        <Outlet />{' '}
+      </main>{' '}
+      <Footer />{' '}
     </>
   );
 }
