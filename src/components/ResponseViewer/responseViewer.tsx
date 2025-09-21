@@ -72,10 +72,11 @@ export function ResponseViewer({
       <CardContent className="flex h-full flex-col gap-4">
         {' '}
         <div className="flex items-center gap-2">
-          {' '}
-          <label className="w-16 text-sm font-medium">{t('status')}</label>{' '}
-          <Input value={response.status} readOnly />{' '}
-        </div>{' '}
+          <label htmlFor="status-input" className="w-16 text-sm font-medium">
+            {t('status')}
+          </label>
+          <Input id="status-input" value={response.status} readOnly />
+        </div>
         <div className="h-full">
           {' '}
           <label htmlFor="response-textarea" className="w-16 text-sm font-medium">

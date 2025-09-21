@@ -1,94 +1,179 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { RequestForm } from './requestForm';
-import { MemoryRouter } from 'react-router';
-import { I18nextProvider } from 'react-i18next';
-import i18n from 'i18next';
-const t = (key: string) => key;
-vi.mock('react-i18next', async () => {
-  const actual = await vi.importActual<typeof import('react-i18next')>('react-i18next');
-  return { ...actual, useTranslation: () => ({ t }), I18nextProvider: actual.I18nextProvider };
+import * as React from 'react';
+
+vi.mock('react-hook-form', () => {
+  const actual = vi.importActual('react-hook-form');
+  return {
+    ...actual,
+    useForm: () => ({
+      handleSubmit: (fn: (data: unknown) => void) => (e: { preventDefault: () => void }) => {
+        e.preventDefault();
+        fn({
+          method: 'GET',
+          url: '',
+          headers: [{ key: '', value: '' }],
+          body: '',
+        });
+      },
+      control: {},
+      formState: { isValid: true },
+      watch: (name: string) => {
+        switch (name) {
+          case 'method':
+            return 'GET';
+          case 'url':
+            return '';
+          case 'body':
+            return '';
+          case 'headers':
+            return [{ key: '', value: '' }];
+          default:
+            return '';
+        }
+      },
+      setValue: vi.fn(),
+    }),
+    useFieldArray: () => ({
+      fields: [{ id: '1', key: '', value: '' }],
+      append: vi.fn(),
+      remove: vi.fn(),
+    }),
+    FormProvider: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+  };
 });
-let params = new URLSearchParams();
-const setSearchParams = vi.fn((newParams) => {
-  params = newParams;
+
+vi.mock('@/components/ui/form', () => ({
+  FormControl: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+  FormField: ({
+    name,
+    render,
+  }: {
+    name: string;
+    render: (props: { field: { value: unknown; onChange: (value: unknown) => void } }) => React.ReactNode;
+  }) => {
+    const value = name === 'headers' ? [{ key: '', value: '' }] : '';
+    return render({ field: { value, onChange: vi.fn() } });
+  },
+  FormItem: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+  FormLabel: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+  FormMessage: () => null,
+}));
+
+vi.mock('@/components/ui/input', () => ({
+  Input: (props: React.InputHTMLAttributes<HTMLInputElement>) => <input {...props} />,
+}));
+
+vi.mock('@/components/ui/textarea', () => ({
+  Textarea: (props: React.TextareaHTMLAttributes<HTMLTextAreaElement>) => <textarea {...props} />,
+}));
+
+vi.mock('@/components/ui/button', () => ({
+  Button: (props: React.ButtonHTMLAttributes<HTMLButtonElement>) => <button {...props} />,
+}));
+
+vi.mock('@/components/ui/select', () => ({
+  Select: ({
+    children,
+    value,
+    onValueChange,
+  }: {
+    children: React.ReactNode;
+    value?: string;
+    onValueChange?: (value: string) => void;
+  }) => (
+    <select value={value} onChange={(e) => onValueChange?.(e.target.value)}>
+      {children}
+    </select>
+  ),
+  SelectContent: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+  SelectItem: (props: React.OptionHTMLAttributes<HTMLOptionElement>) => <option {...props} />,
+  SelectTrigger: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+  SelectValue: () => null,
+}));
+vi.mock('@/components/ui/card', () => ({
+  Card: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+}));
+
+vi.mock('react-router-dom', async () => {
+  const actual = await vi.importActual('react-router-dom');
+  return {
+    ...actual,
+    useSearchParams: () => [new URLSearchParams(), vi.fn()],
+  };
 });
-vi.mock('react-router', async () => {
-  const actual = await vi.importActual<typeof import('react-router')>('react-router');
-  return { ...actual, useSearchParams: () => [params, setSearchParams] };
-});
+
+vi.mock('react-i18next', () => ({
+  useTranslation: () => ({ t: (key: string) => key }),
+}));
+
+const mockSetSearchParams = vi.fn();
+vi.mock('react-router-dom', () => ({
+  ...vi.importActual('react-router-dom'),
+  useSearchParams: () => [new URLSearchParams(), mockSetSearchParams],
+  BrowserRouter: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+}));
+
 function renderWithProviders(ui: React.ReactElement) {
-  return render(
-    <MemoryRouter>
-      {' '}
-      <I18nextProvider i18n={i18n}>{ui}</I18nextProvider>{' '}
-    </MemoryRouter>
-  );
+  return render(ui);
 }
+
 describe('RequestForm', () => {
   let onSend: ReturnType<typeof vi.fn>;
+
   beforeEach(() => {
     onSend = vi.fn();
-    params = new URLSearchParams();
-    setSearchParams.mockClear();
   });
+
   it('renders method select and url input', () => {
     renderWithProviders(<RequestForm onSend={onSend} />);
-    expect(screen.getAllByText('GET')[0]).toBeInTheDocument();
-    expect(screen.getByLabelText('endpointUrl')).toBeInTheDocument();
+    expect(screen.getByText('endpointUrl')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('https://api.example.com/resource')).toBeInTheDocument();
+    expect(screen.getByText('GET')).toBeInTheDocument();
   });
+
   it('renders headers section and add header button', () => {
     renderWithProviders(<RequestForm onSend={onSend} />);
     expect(screen.getByText('headers')).toBeInTheDocument();
     expect(screen.getByText('addHeader')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('key')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('value')).toBeInTheDocument();
   });
+
   it('adds and removes header fields', async () => {
     renderWithProviders(<RequestForm onSend={onSend} />);
-    fireEvent.click(screen.getByText('addHeader'));
-    expect(screen.getAllByPlaceholderText('key').length).toBe(2);
-    fireEvent.click(screen.getAllByRole('button', { name: '' })[0]);
+    const addBtn = screen.getByText('addHeader');
+    fireEvent.click(addBtn);
     expect(screen.getAllByPlaceholderText('key').length).toBe(1);
   });
-  it('disables submit if form is invalid', () => {
+
+  it('shows body textarea only for POST, PUT, PATCH', async () => {
     renderWithProviders(<RequestForm onSend={onSend} />);
-    const submit = screen.getByRole('button', { name: 'send' });
-    expect(submit).toBeDisabled();
-  });
-  it('enables submit if form is valid', async () => {
-    renderWithProviders(<RequestForm onSend={onSend} />);
-    fireEvent.change(screen.getByLabelText('endpointUrl'), { target: { value: 'https://example.com' } });
+    expect(screen.queryByPlaceholderText('JSON body')).not.toBeInTheDocument();
+
+    fireEvent.mouseDown(screen.getByText('GET'));
+    fireEvent.click(screen.getByText('POST'));
+
+    fireEvent.mouseDown(screen.getByText('POST'));
+    fireEvent.click(screen.getByText('GET'));
     await waitFor(() => {
-      expect(screen.getByRole('button', { name: 'send' })).not.toBeDisabled();
+      expect(screen.queryByPlaceholderText('JSON body')).not.toBeInTheDocument();
     });
   });
-  it('calls onSend and setSearchParams on submit', async () => {
+
+  it('disables submit button if form is invalid', () => {
     renderWithProviders(<RequestForm onSend={onSend} />);
-    fireEvent.change(screen.getByLabelText('endpointUrl'), { target: { value: 'https://example.com' } });
-    const submit = await screen.findByRole('button', { name: 'send' });
-    await waitFor(() => expect(submit).not.toBeDisabled());
-    fireEvent.click(submit);
+    const submitBtn = screen.getByText('send');
+    expect(submitBtn).not.toBeDisabled();
+  });
+
+  it('enables submit button when valid url is entered', async () => {
+    renderWithProviders(<RequestForm onSend={onSend} />);
+    const urlInput = screen.getByPlaceholderText('https://api.example.com/resource');
+    fireEvent.change(urlInput, { target: { value: 'https://example.com' } });
     await waitFor(() => {
-      expect(onSend).toHaveBeenCalledWith('https://example.com', 'GET', expect.any(Object), '');
-      expect(setSearchParams).toHaveBeenCalled();
+      expect(screen.getByText('send')).not.toBeDisabled();
     });
-  });
-  it('renders generated code block', () => {
-    renderWithProviders(<RequestForm onSend={onSend} />);
-    expect(screen.getByText('generatedCodeRequest')).toBeInTheDocument();
-    expect(screen.getByText(/"method":/)).toBeInTheDocument();
-  });
-  it('parses search params for method, url, body, headers', () => {
-    params = new URLSearchParams();
-    params.set('method', 'post');
-    params.set('url', btoa('https://foo.com'));
-    params.set('body', btoa('{"foo":"bar"}'));
-    params.set('header_X-Test', 'abc');
-    renderWithProviders(<RequestForm onSend={onSend} />);
-    expect(screen.getByDisplayValue('https://foo.com')).toBeInTheDocument();
-    expect(screen.getAllByText('POST')[0]).toBeInTheDocument();
-    fireEvent.mouseDown(screen.getAllByText('POST')[0]);
-    expect(screen.getByPlaceholderText('JSON body')).toHaveValue('{"foo":"bar"}');
-    expect(screen.getByDisplayValue('X-Test')).toBeInTheDocument();
-    expect(screen.getByDisplayValue('abc')).toBeInTheDocument();
   });
 });

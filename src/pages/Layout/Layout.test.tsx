@@ -1,9 +1,10 @@
+vi.mock('@/components/Footer/Footer', () => ({ default: () => <div data-testid="footer" /> }));
+vi.mock('@/components/Header/Header', () => ({ default: () => <div data-testid="header" /> }));
+
 import { describe, it, vi, beforeEach, afterEach, expect } from 'vitest';
 import { render } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import Layout from './Layout';
-vi.mock('@/components/Footer/Footer', () => ({ default: () => <div data-testid="footer" /> }));
-vi.mock('@/components/Header/Header', () => ({ default: () => <div data-testid="header" /> }));
 function renderWithRouter(initialPath = '/') {
   return render(
     <MemoryRouter initialEntries={[initialPath]}>
