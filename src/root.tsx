@@ -9,52 +9,41 @@ import {
   type LinksFunction,
 } from 'react-router';
 import stylesheet from './global.css?url';
-import NotFound from './pages/NotFound';
-import './i18n';
+import NotFound from './pages/NotFound/NotFound';
+import i18n from './i18n';
 import type { Route } from './+types/root';
 import { Toaster } from 'sonner';
 import { useEffect } from 'react';
 import { useAuthStore } from './store/AuthState';
-import i18n from './i18n';
-
 export const links: LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-  {
-    rel: 'preconnect',
-    href: 'https://fonts.gstatic.com',
-    crossOrigin: 'anonymous',
-  },
+  { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossOrigin: 'anonymous' },
   {
     rel: 'stylesheet',
     href: 'https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap',
   },
   { rel: 'stylesheet', href: stylesheet },
 ];
-
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
+      {' '}
       <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <Meta />
-        <Links />
-      </head>
+        {' '}
+        <meta charSet="utf-8" /> <meta name="viewport" content="width=device-width, initial-scale=1" /> <Meta />{' '}
+        <Links />{' '}
+      </head>{' '}
       <body>
-        {children}
-        <Toaster position="bottom-center" richColors />
-        <ScrollRestoration />
-        <Scripts />
-      </body>
+        {' '}
+        {children} <Toaster position="bottom-center" richColors /> <ScrollRestoration /> <Scripts />{' '}
+      </body>{' '}
     </html>
   );
 }
-
 export async function clientLoader() {
   const lang = localStorage.getItem('Language') ?? 'en';
   i18n.changeLanguage(lang);
 }
-
 export default function App() {
   const init = useAuthStore((s) => s.init);
   useEffect(() => {
@@ -62,12 +51,10 @@ export default function App() {
   }, [init]);
   return <Outlet />;
 }
-
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   const message = 'Oops!';
   let details = 'An unexpected error occurred.';
   let stack: string | undefined;
-
   if (isRouteErrorResponse(error)) {
     if (error.status) {
       return <NotFound />;
@@ -78,17 +65,18 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   }
   return (
     <main className="container mx-auto p-4 pt-16">
-      <h1>{message}</h1>
-      <p>{details}</p>
-
+      {' '}
+      <h1>{message}</h1> <p>{details}</p>{' '}
       {stack && (
         <pre className="w-full overflow-x-auto p-4">
-          <code>{stack}</code>
+          {' '}
+          <code>{stack}</code>{' '}
         </pre>
-      )}
+      )}{' '}
       <Link className="space-x-1.5 border p-3 shadow" to="/">
-        Back
-      </Link>
+        {' '}
+        Back{' '}
+      </Link>{' '}
     </main>
   );
 }

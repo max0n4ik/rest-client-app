@@ -1,5 +1,4 @@
 import z from 'zod';
-
 export function createLoginSchema(t: (key: string) => string) {
   return z.object({
     email: z.string().email(t('zodValidation:email_invalid')),
@@ -11,7 +10,6 @@ export function createLoginSchema(t: (key: string) => string) {
       .regex(/[^a-zA-Z0-9]/, t('zodValidation:password_special')),
   });
 }
-
 export function createRegistrationSchema(t: (key: string) => string) {
   return z
     .object({
@@ -23,9 +21,7 @@ export function createRegistrationSchema(t: (key: string) => string) {
         .regex(/^[A-ZА-Я]/, { message: t('zodValidation:name_first_uppercase') })
         .regex(/^[A-Za-zА-Яа-я]*$/, { message: t('zodValidation:name_only_letters') })
         .trim()
-        .refine((val) => val.length >= 3, {
-          message: t('zodValidation:short_name'),
-        }),
+        .refine((val) => val.length >= 3, { message: t('zodValidation:short_name') }),
       password: z
         .string()
         .min(8, { message: t('zodValidation:password_min') })
@@ -39,6 +35,5 @@ export function createRegistrationSchema(t: (key: string) => string) {
       path: ['confirmPassword'],
     });
 }
-
 export type LoginData = z.infer<ReturnType<typeof createLoginSchema>>;
 export type RegistrationData = Omit<z.infer<ReturnType<typeof createRegistrationSchema>>, 'confirmPassword'>;

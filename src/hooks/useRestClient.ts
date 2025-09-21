@@ -1,35 +1,29 @@
 import { createClient } from '@/api/client';
 import { useState } from 'react';
-
 export interface RestResponse<T = unknown> {
   status: number;
   ok: boolean;
   data: T | string;
 }
-
 export function useRestClient<T = unknown>() {
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState<RestResponse<T> | null>(null);
   const [error, setError] = useState<string | null>(null);
   const supabase = createClient();
+
   async function sendRequest(url: string, method: string, headers: HeadersInit, body?: BodyInit) {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(url, {
-        method,
-        headers,
-        body: ['GET', 'HEAD'].includes(method) ? undefined : body,
-      });
-
+      const res = await fetch(url, { method, headers, body: ['GET', 'HEAD'].includes(method) ? undefined : body });
       let data: T | string;
       const contentType = res.headers.get('content-type');
-
       if (contentType?.includes('application/json')) {
         data = (await res.json()) as T;
       } else {
         data = await res.text();
       }
+
       const result = {
         status: res.status,
         ok: res.ok,
@@ -65,6 +59,5 @@ export function useRestClient<T = unknown>() {
       setLoading(false);
     }
   }
-
   return { loading, response, error, sendRequest };
 }

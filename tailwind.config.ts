@@ -1,6 +1,5 @@
 import type { Config } from 'tailwindcss';
 import typography from '@tailwindcss/typography';
-
 const config: Config = {
   darkMode: 'class',
   content: ['./src/**/*.{js,ts,jsx,tsx}', './public/index.html'],
@@ -31,5 +30,4 @@ const config: Config = {
   },
   plugins: [typography],
 };
-
 export default config;

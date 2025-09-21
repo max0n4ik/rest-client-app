@@ -43,7 +43,6 @@ const resources = {
     history: historyRU,
   },
 };
-
 i18n.use(initReactI18next).init({
   defaultNS: 'home',
   fallbackLng: 'en',
@@ -51,5 +50,4 @@ i18n.use(initReactI18next).init({
   ns: ['home', 'footer', 'header', 'notFound', 'restClient', 'registration', 'zodValidation', 'login', 'history'],
   resources,
 });
-
 export default i18n;

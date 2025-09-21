@@ -1,10 +1,10 @@
 {
-  "title": "Login",
-  "email": "Email",
-  "password": "Password",
-  "login": "Login",
-  "loggingIn": "Logging In...",
-  "or": "or",
-  "haveNoAccount": "Don't have an account? ",
-  "signUp": "Sign Up"
+    "title": "Login",
+    "email": "Email",
+    "password": "Password",
+    "login": "Login",
+    "loggingIn": "Logging In...",
+    "or": "or",
+    "haveNoAccount": "Don't have an account? ",
+    "signUp": "Sign Up"
 }

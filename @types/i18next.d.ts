@@ -1,5 +1,4 @@
 import 'i18next';
-
 import homeEN from '../src/i18n/locales/en/home.json';
 import footerEN from '../src/i18n/locales/en/Footer.json';
 import headerEN from '../src/i18n/locales/en/Header.json';

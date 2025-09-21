@@ -1,7 +1,7 @@
-import { useFieldArray, useForm } from 'react-hook-form';
+import { useFieldArray, useForm, FormProvider } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
@@ -10,7 +10,7 @@ import { Card } from '@/components/ui/card';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { Label } from '@/components/ui/label';
-import { useSearchParams } from 'react-router';
+import { useSearchParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -117,7 +117,7 @@ export function RequestForm({
   }
 
   return (
-    <Form {...form}>
+    <FormProvider {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
         <Card className="flex items-center gap-3 border-b border-transparent bg-transparent shadow-none">
           <div className="flex min-h-[90px] w-full items-start gap-2">
@@ -228,6 +228,6 @@ export function RequestForm({
           {t('send')}
         </Button>
       </form>
-    </Form>
+    </FormProvider>
   );
 }
