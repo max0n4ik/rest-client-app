@@ -25,13 +25,11 @@ export default function Layout() {
   }, [location.pathname]);
   return (
     <>
-      {' '}
-      <Header />{' '}
+      <Header />
       <main className="flex-1">
-        {' '}
-        <Outlet />{' '}
-      </main>{' '}
-      <Footer />{' '}
+        <Outlet />
+      </main>
+      <Footer />
     </>
   );
 }

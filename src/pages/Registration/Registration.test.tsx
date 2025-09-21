@@ -22,8 +22,7 @@ describe('Registration', () => {
   it('renders RegistrationForm', () => {
     render(
       <MemoryRouter>
-        {' '}
-        <Registration />{' '}
+        <Registration />
       </MemoryRouter>
     );
     expect(screen.getByTestId('registration-form')).toBeInTheDocument();
@@ -31,8 +30,7 @@ describe('Registration', () => {
   it('renders "or" separator', () => {
     render(
       <MemoryRouter>
-        {' '}
-        <Registration />{' '}
+        <Registration />
       </MemoryRouter>
     );
     expect(screen.getByText('or')).toBeInTheDocument();
@@ -40,8 +38,7 @@ describe('Registration', () => {
   it('renders "Already have an account?" text', () => {
     render(
       <MemoryRouter>
-        {' '}
-        <Registration />{' '}
+        <Registration />
       </MemoryRouter>
     );
     expect(screen.getByText('Already have an account?')).toBeInTheDocument();
@@ -49,8 +46,7 @@ describe('Registration', () => {
   it('renders "Sign In" link to /login', () => {
     render(
       <MemoryRouter>
-        {' '}
-        <Registration />{' '}
+        <Registration />
       </MemoryRouter>
     );
     const signInLink = screen.getByText('Sign In');
@@ -60,8 +56,7 @@ describe('Registration', () => {
   it('renders RESTify link to home on large screens', () => {
     render(
       <MemoryRouter>
-        {' '}
-        <Registration />{' '}
+        <Registration />
       </MemoryRouter>
     );
     const restifyLink = screen.getByText('RESTify');
@@ -71,8 +66,7 @@ describe('Registration', () => {
   it('renders background image with correct alt', () => {
     render(
       <MemoryRouter>
-        {' '}
-        <Registration />{' '}
+        <Registration />
       </MemoryRouter>
     );
     const img = screen.getByAltText('export');

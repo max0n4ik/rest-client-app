@@ -19,8 +19,7 @@ describe('NotFound', () => {
   it('renders the title', () => {
     render(
       <MemoryRouter>
-        {' '}
-        <NotFound />{' '}
+        <NotFound />
       </MemoryRouter>
     );
     expect(screen.getByText('Not Found')).toBeInTheDocument();
@@ -28,8 +27,7 @@ describe('NotFound', () => {
   it('renders the description text', () => {
     render(
       <MemoryRouter>
-        {' '}
-        <NotFound />{' '}
+        <NotFound />
       </MemoryRouter>
     );
     expect(screen.getByText('The page you are looking for does not exist.')).toBeInTheDocument();
@@ -37,8 +35,7 @@ describe('NotFound', () => {
   it('renders the button with correct text', () => {
     render(
       <MemoryRouter>
-        {' '}
-        <NotFound />{' '}
+        <NotFound />
       </MemoryRouter>
     );
     expect(screen.getByRole('link', { name: 'Go Home' })).toBeInTheDocument();
@@ -46,8 +43,7 @@ describe('NotFound', () => {
   it('button links to the home page', () => {
     render(
       <MemoryRouter>
-        {' '}
-        <NotFound />{' '}
+        <NotFound />
       </MemoryRouter>
     );
     const link = screen.getByRole('link', { name: 'Go Home' });

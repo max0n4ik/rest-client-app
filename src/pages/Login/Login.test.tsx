@@ -18,11 +18,9 @@ vi.mock('react-i18next', async () => {
 function renderLoginPage() {
   return render(
     <I18nextProvider i18n={mockI18n}>
-      {' '}
       <MemoryRouter>
-        {' '}
-        <LoginPage />{' '}
-      </MemoryRouter>{' '}
+        <LoginPage />
+      </MemoryRouter>
     </I18nextProvider>
   );
 }

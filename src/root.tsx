@@ -27,16 +27,13 @@ export const links: LinksFunction = () => [
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      {' '}
       <head>
-        {' '}
-        <meta charSet="utf-8" /> <meta name="viewport" content="width=device-width, initial-scale=1" /> <Meta />{' '}
-        <Links />{' '}
-      </head>{' '}
+        <meta charSet="utf-8" /> <meta name="viewport" content="width=device-width, initial-scale=1" /> <Meta />
+        <Links />
+      </head>
       <body>
-        {' '}
-        {children} <Toaster position="bottom-center" richColors /> <ScrollRestoration /> <Scripts />{' '}
-      </body>{' '}
+        {children} <Toaster position="bottom-center" richColors /> <ScrollRestoration /> <Scripts />
+      </body>
     </html>
   );
 }
@@ -65,18 +62,15 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   }
   return (
     <main className="container mx-auto p-4 pt-16">
-      {' '}
-      <h1>{message}</h1> <p>{details}</p>{' '}
+      <h1>{message}</h1> <p>{details}</p>
       {stack && (
         <pre className="w-full overflow-x-auto p-4">
-          {' '}
-          <code>{stack}</code>{' '}
+          <code>{stack}</code>
         </pre>
-      )}{' '}
+      )}
       <Link className="space-x-1.5 border p-3 shadow" to="/">
-        {' '}
-        Back{' '}
-      </Link>{' '}
+        Back
+      </Link>
     </main>
   );
 }

@@ -18,9 +18,8 @@ vi.mock('@/components/RequestForm/requestForm', () => ({
 vi.mock('@/components/ResponseViewer/responseViewer', () => ({
   ResponseViewer: ({ response, error, loading }: ResponseViewerProps) => (
     <div>
-      {' '}
-      {loading && <span>loading...</span>} {error && <span>error: {error}</span>}{' '}
-      {response && <span>response: {JSON.stringify(response)}</span>}{' '}
+      {loading && <span>loading...</span>} {error && <span>error: {error}</span>}
+      {response && <span>response: {JSON.stringify(response)}</span>}
     </div>
   ),
 }));

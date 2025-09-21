@@ -42,101 +42,84 @@ export default function RegistrationForm(): React.JSX.Element {
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={cn('flex flex-col gap-6')}>
-      {' '}
       <div className="flex flex-col items-center gap-2 text-center">
-        {' '}
-        <h1 className="text-2xl font-bold">{t('title')}</h1>{' '}
-        <p className="text-muted-foreground text-sm text-balance">{t('subtitle')}</p>{' '}
-      </div>{' '}
+        <h1 className="text-2xl font-bold">{t('title')}</h1>
+        <p className="text-muted-foreground text-sm text-balance">{t('subtitle')}</p>
+      </div>
       <div className="grid gap-6">
-        {' '}
         <div className="relative grid gap-2">
-          {' '}
-          <Label htmlFor="email">{t('email')}</Label>{' '}
-          <Input id="email" type="email" placeholder={t('email')} {...register('email')} />{' '}
+          <Label htmlFor="email">{t('email')}</Label>
+          <Input id="email" type="email" placeholder={t('email')} {...register('email')} />
           {errors.email && (
             <div className="absolute top-full left-0 mt-1">
-              {' '}
-              <Tooltip message={errors.email.message} />{' '}
+              <Tooltip message={errors.email.message} />
             </div>
-          )}{' '}
-        </div>{' '}
+          )}
+        </div>
         <div className="relative grid gap-2">
-          {' '}
-          <Label htmlFor="name">{t('name')}</Label>{' '}
+          <Label htmlFor="name">{t('name')}</Label>
           <div className="relative">
-            {' '}
-            <Input id="name" type="text" autoComplete="off" placeholder={t('name')} {...register('name')} />{' '}
+            <Input id="name" type="text" autoComplete="off" placeholder={t('name')} {...register('name')} />
             {errors.name && (
               <div className="absolute top-full left-0 mt-1">
-                {' '}
-                <Tooltip message={errors.name.message} />{' '}
+                <Tooltip message={errors.name.message} />
               </div>
-            )}{' '}
-          </div>{' '}
-        </div>{' '}
+            )}
+          </div>
+        </div>
         <div className="relative grid gap-2">
-          {' '}
-          <Label htmlFor="password">{t('password')}</Label>{' '}
+          <Label htmlFor="password">{t('password')}</Label>
           <div className="relative">
-            {' '}
             <Input
               id="password"
               type={showPassword ? 'text' : 'password'}
               autoComplete="off"
               placeholder={t('password')}
               {...register('password')}
-            />{' '}
+            />
             <button
               type="button"
               className="text-muted-foreground hover:text-foreground absolute inset-y-0 right-2 my-auto flex items-center"
               onClick={() => setShowPassword(!showPassword)}
               aria-label={showPassword ? 'Hide password' : 'Show password'}>
-              {' '}
-              {showPassword ? <EyeOff size={21} /> : <Eye size={21} />}{' '}
-            </button>{' '}
+              {showPassword ? <EyeOff size={21} /> : <Eye size={21} />}
+            </button>
             {errors.password && (
               <div className="absolute top-full left-0 mt-1">
-                {' '}
-                <Tooltip message={errors.password.message} />{' '}
+                <Tooltip message={errors.password.message} />
               </div>
-            )}{' '}
-          </div>{' '}
-        </div>{' '}
+            )}
+          </div>
+        </div>
         <div className="relative grid gap-2">
-          {' '}
-          <Label htmlFor="confirmPassword">{t('repeatPassword')}</Label>{' '}
+          <Label htmlFor="confirmPassword">{t('repeatPassword')}</Label>
           <div className="relative">
-            {' '}
             <Input
               id="confirmPassword"
               type={showConfirmPassword ? 'text' : 'password'}
               autoComplete="off"
               placeholder={t('repeatPassword')}
               {...register('confirmPassword')}
-            />{' '}
+            />
             <button
               type="button"
               className="text-muted-foreground hover:text-foreground absolute top-1/2 right-2 -translate-y-1/2"
               onClick={() => setShowConfirmPassword(!showConfirmPassword)}
               aria-label={showConfirmPassword ? 'Hide password' : 'Show password'}>
-              {' '}
-              {showConfirmPassword ? <EyeOff size={21} /> : <Eye size={21} />}{' '}
-            </button>{' '}
+              {showConfirmPassword ? <EyeOff size={21} /> : <Eye size={21} />}
+            </button>
             {errors.confirmPassword && (
               <div className="absolute top-full left-0 mt-1">
-                {' '}
-                <Tooltip message={errors.confirmPassword.message} />{' '}
+                <Tooltip message={errors.confirmPassword.message} />
               </div>
-            )}{' '}
-          </div>{' '}
-        </div>{' '}
-        {error ? <p className="text-destructive text-sm font-medium">{error}</p> : null}{' '}
+            )}
+          </div>
+        </div>
+        {error ? <p className="text-destructive text-sm font-medium">{error}</p> : null}
         <Button variant={'secondary'} type="submit" className="w-full">
-          {' '}
-          {isSubmitting ? t('signingUp') : t('signUp')}{' '}
-        </Button>{' '}
-      </div>{' '}
+          {isSubmitting ? t('signingUp') : t('signUp')}
+        </Button>
+      </div>
     </form>
   );
 }
