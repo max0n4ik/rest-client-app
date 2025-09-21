@@ -1,0 +1,13 @@
+{
+    "email_invalid": "Invalid email address, (e.g., example@email.com)",
+    "password_min": "Password must be at least 8 characters long",
+    "password_letter": "Password must contain at least one letter",
+    "password_digit": "Password must contain at least one digit",
+    "password_special": "Password must contain at least one special character",
+    "name_min": "Minimum 3 characters required",
+    "name_max": "Maximum 50 characters allowed",
+    "name_first_uppercase": "First character must be uppercase",
+    "name_only_letters": "Only letters allowed, no spaces or special characters",
+    "confirm_password_mismatch": "Passwords do not match",
+    "short_name": "Name is too short"
+}

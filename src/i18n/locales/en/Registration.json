@@ -1,0 +1,13 @@
+{
+    "title": "Get Started Now",
+    "subtitle": "Enter your Credentials to create your account",
+    "email": "Email",
+    "name": "Name",
+    "password": "Password",
+    "repeatPassword": "Repeat Password",
+    "signingUp": "Signing Up...",
+    "signUp": "Sign Up",
+    "or": "or",
+    "haveAccount": "Already have an account? ",
+    "signIn": "Sign In"
+}

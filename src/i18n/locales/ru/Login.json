@@ -1,0 +1,10 @@
+{
+    "title": "Войти",
+    "email": "Email",
+    "password": "Пароль",
+    "login": "Войти",
+    "loggingIn": "Вход...",
+    "or": "или",
+    "haveNoAccount": "Нет аккаунта? ",
+    "signUp": "Зарегистрироваться"
+}

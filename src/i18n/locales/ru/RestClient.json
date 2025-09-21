@@ -1,0 +1,19 @@
+{
+    "request": "Запрос",
+    "response": "Ответ",
+    "endpointUrl": "URL конечной точки",
+    "headers": "Заголовки",
+    "addHeader": "Добавить заголовок",
+    "headerKey": "Ключ заголовка",
+    "key": "Ключ",
+    "headerValue": "Значение заголовка",
+    "value": "Значение",
+    "requestBody": "Тело запроса",
+    "generatedCodeRequest": "Сгенерированный код запроса:",
+    "send": "Отправить запрос",
+    "placeholder": "Здесь будет ответ",
+    "error": "Error",
+    "status": "Статус",
+    "sending": "Отправка запроса...",
+    "zodValidation": "Введите корректный URL"
+}
