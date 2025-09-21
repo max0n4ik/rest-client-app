@@ -9,7 +9,7 @@ const resources = { login: { or: 'or', haveNoAccount: 'No account?', signUp: 'Si
 const mockI18n = i18n.createInstance();
 mockI18n.init({ lng: 'en', resources: { en: { login: resources.login } }, fallbackLng: 'en' });
 vi.mock('react-i18next', async () => {
-  const actual = await vi.importActual<any>('react-i18next');
+  const actual = await vi.importActual<typeof import('react-i18next')>('react-i18next');
   return {
     ...actual,
     useTranslation: () => ({ t: (key: keyof typeof resources.login) => resources.login[key] || key }),

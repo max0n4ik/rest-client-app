@@ -7,6 +7,7 @@ import tseslint from 'typescript-eslint';
 import eslintPluginPrettier from 'eslint-plugin-prettier/recommended';
 import reactCompiler from 'eslint-plugin-react-compiler';
 import importPlugin from 'eslint-plugin-import';
+
 export default [
   { ignores: ['dist', '.react-router'] },
   js.configs.recommended,
@@ -15,8 +16,16 @@ export default [
   importPlugin.flatConfigs.recommended,
   {
     files: ['**/*.{ts,tsx}'],
-    languageOptions: { ecmaVersion: 2020, globals: globals.browser },
-    plugins: { react, 'react-hooks': reactHooks, 'react-refresh': reactRefresh, 'react-compiler': reactCompiler },
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: globals.browser,
+    },
+    plugins: {
+      react,
+      'react-hooks': reactHooks,
+      'react-refresh': reactRefresh,
+      'react-compiler': reactCompiler,
+    },
     rules: {
       ...reactHooks.configs.recommended.rules,
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
@@ -25,10 +34,18 @@ export default [
       ...react.configs['jsx-runtime'].rules,
     },
     settings: {
-      react: { version: 'detect' },
+      react: {
+        version: 'detect',
+      },
       'import/resolver': {
-        typescript: { alwaysTryTypes: true, project: './tsconfig.json' },
-        node: { paths: ['src'], extensions: ['.js', '.jsx', '.ts', '.tsx'] },
+        typescript: {
+          alwaysTryTypes: true,
+          project: './tsconfig.json',
+        },
+        node: {
+          paths: ['src'],
+          extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        },
       },
     },
   },
