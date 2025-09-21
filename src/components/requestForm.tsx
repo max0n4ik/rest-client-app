@@ -11,15 +11,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { Label } from '@/components/ui/label';
 import { useSearchParams } from 'react-router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { SUPPORTED_LANGS, useGeneratedCode } from '@/hooks/useGeneratedCode';
 
 const METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'] as const;
 type Method = (typeof METHODS)[number];
 
 function createRequestSchema(urlMessage: string) {
   return z.object({
-    url: z.string().url(urlMessage),
+    url: z.url(urlMessage),
     method: z.enum(METHODS),
     headers: z.array(
       z.object({
@@ -36,6 +37,7 @@ export function RequestForm({
 }: {
   onSend: (url: string, method: string, headers: Record<string, string>, body?: BodyInit) => void;
 }) {
+  const [selectedLang, setSelectedLang] = useState(SUPPORTED_LANGS[0]);
   const [searchParams, setSearchParams] = useSearchParams();
   const { t } = useTranslation('restClient');
 
@@ -76,23 +78,6 @@ export function RequestForm({
   const body = form.watch('body');
   const headers = form.watch('headers');
 
-  const encodedUrl = btoa(url);
-  const encodedBody = body ? btoa(body) : undefined;
-
-  const generatedCode = JSON.stringify(
-    {
-      method: method,
-      url: encodedUrl,
-      headers: headers.reduce<{ key: string; value: string } | object>(
-        (acc, header: { key: string; value: string }) => (header.key ? { ...acc, [header.key]: header.value } : acc),
-        {}
-      ),
-      body: encodedBody ? encodedBody : '',
-    },
-    null,
-    2
-  );
-
   useEffect(() => {
     if (!['POST', 'PUT', 'PATCH'].includes(method)) form.setValue('body', '');
   }, [form, method]);
@@ -115,6 +100,8 @@ export function RequestForm({
 
     onSend(data.url, data.method, headersObj, data.body);
   }
+
+  const generatedSnippet = useGeneratedCode({ url, method, headers, body, selectedLang });
 
   return (
     <Form {...form}>
@@ -219,8 +206,27 @@ export function RequestForm({
 
         <div className="text-primary space-y-3">
           <FormLabel className="block text-2xl">{t('generatedCodeRequest')}</FormLabel>
+
+          <Select
+            value={`${selectedLang.lang}-${selectedLang.variant}`}
+            onValueChange={(val) => {
+              const lang = SUPPORTED_LANGS.find((l) => `${l.lang}-${l.variant}` === val);
+              if (lang) setSelectedLang(lang);
+            }}>
+            <SelectTrigger className="w-64">
+              <SelectValue placeholder="Choose language" />
+            </SelectTrigger>
+            <SelectContent>
+              {SUPPORTED_LANGS.map((l) => (
+                <SelectItem key={`${l.lang}-${l.variant}`} value={`${l.lang}-${l.variant}`}>
+                  {l.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
           <Card className="shadow-non border-card-foreground bg-card-30 p-4 font-mono text-xs whitespace-pre-wrap">
-            <pre>{generatedCode}</pre>
+            <pre>{generatedSnippet}</pre>
           </Card>
         </div>
 
