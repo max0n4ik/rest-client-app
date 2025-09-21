@@ -3,13 +3,16 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import Header from './Header';
 import { useAuthStore } from '../../store/AuthState';
 import { useTranslation } from 'react-i18next';
-vi.mock('react-router', () => ({
+const mockNavigate = vi.fn();
+
+vi.mock('react-router-dom', () => ({
   Link: ({ to, children, ...props }: React.PropsWithChildren<{ to: string }>) => (
     <a href={to} {...props}>
-      {' '}
-      {children}{' '}
+      {children}
     </a>
   ),
+  useNavigate: () => mockNavigate,
+  useLocation: () => ({ pathname: '/', search: '', hash: '', state: null }),
 }));
 vi.mock('@fortawesome/react-fontawesome', () => ({
   FontAwesomeIcon: ({ icon }: { icon: { iconName: string } }) => <span data-testid="icon">{icon.iconName}</span>,
@@ -24,6 +27,7 @@ describe('Header', () => {
     (useTranslation as unknown as Mock).mockReturnValue({ t: tMock, i18n: i18nMock });
     (useAuthStore as unknown as Mock).mockImplementation((cb) => cb({ user: null, logout: vi.fn() }));
     localStorage.clear();
+    mockNavigate.mockClear();
   });
   afterEach(() => {
     vi.clearAllMocks();
@@ -55,7 +59,7 @@ describe('Header', () => {
     expect(changeLanguageMock).toHaveBeenCalledWith('ru');
     expect(localStorage.getItem('Language')).toBe('ru');
   });
-  it('calls logout when logout button is clicked', () => {
+  it('calls logout and navigates to home when logout button is clicked', () => {
     const logoutMock = vi.fn();
     (useAuthStore as unknown as Mock).mockImplementation((cb) => cb({ user: { name: 'test' }, logout: logoutMock }));
     render(<Header />);
@@ -63,6 +67,7 @@ describe('Header', () => {
     expect(logoutBtn).toBeDefined();
     if (logoutBtn) fireEvent.click(logoutBtn);
     expect(logoutMock).toHaveBeenCalled();
+    expect(mockNavigate).toHaveBeenCalledWith('/');
   });
   it('toggles mobile menu on menu button click', () => {
     render(<Header />);
