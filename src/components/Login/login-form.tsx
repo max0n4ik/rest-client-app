@@ -44,16 +44,12 @@ export default function LoginForm({ className, ...props }: React.ComponentPropsW
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={cn('flex flex-col gap-6', className)} {...props}>
-      {' '}
       <div className="flex flex-col items-center gap-2 text-center">
-        {' '}
-        <h1 className="font-serif text-[30px]">{t('title')}</h1>{' '}
-      </div>{' '}
+        <h1 className="font-serif text-[30px]">{t('title')}</h1>
+      </div>
       <div className="grid gap-6">
-        {' '}
         <div className="relative grid gap-2">
-          {' '}
-          <Label htmlFor="email">{t('email')}</Label>{' '}
+          <Label htmlFor="email">{t('email')}</Label>
           <Input
             id="email"
             type="email"
@@ -61,21 +57,17 @@ export default function LoginForm({ className, ...props }: React.ComponentPropsW
             required
             aria-describedby="email-error"
             {...register('email')}
-          />{' '}
+          />
           {errors.email?.message && (
             <div className="absolute top-full left-0 mt-1">
-              {' '}
-              <Tooltip message={errors.email?.message} />{' '}
+              <Tooltip message={errors.email?.message} />
             </div>
-          )}{' '}
-        </div>{' '}
+          )}
+        </div>
         <div className="relative grid gap-2">
-          {' '}
           <div className="relative">
-            {' '}
-            <Label htmlFor="password">{t('password')}</Label>{' '}
+            <Label htmlFor="password">{t('password')}</Label>
             <div className="relative">
-              {' '}
               <Input
                 id="password"
                 autoComplete="off"
@@ -85,30 +77,27 @@ export default function LoginForm({ className, ...props }: React.ComponentPropsW
                 className="pr-10"
                 placeholder={t('password')}
                 {...register('password')}
-              />{' '}
+              />
               <button
                 type="button"
                 className="text-muted-foreground hover:text-foreground absolute inset-y-0 right-2 my-auto flex items-center"
                 onClick={() => setShowPassword(!showPassword)}
                 aria-label={showPassword ? 'Hide password' : 'Show password'}>
-                {' '}
-                {showPassword ? <EyeOff size={21} /> : <Eye size={21} />}{' '}
-              </button>{' '}
-            </div>{' '}
-          </div>{' '}
+                {showPassword ? <EyeOff size={21} /> : <Eye size={21} />}
+              </button>
+            </div>
+          </div>
           {errors.password?.message && (
             <div className="absolute top-full left-0 mt-1">
-              {' '}
-              <Tooltip message={errors.password?.message} />{' '}
+              <Tooltip message={errors.password?.message} />
             </div>
-          )}{' '}
-        </div>{' '}
-        {error ? <p className="text-destructive text-sm font-medium">{error}</p> : null}{' '}
+          )}
+        </div>
+        {error ? <p className="text-destructive text-sm font-medium">{error}</p> : null}
         <Button variant={'secondary'} type="submit" className="w-full" aria-disabled={isSubmitting || loading}>
-          {' '}
-          {isSubmitting || loading ? t('loggingIn') : t('login')}{' '}
-        </Button>{' '}
-      </div>{' '}
+          {isSubmitting || loading ? t('loggingIn') : t('login')}
+        </Button>
+      </div>
     </form>
   );
 }

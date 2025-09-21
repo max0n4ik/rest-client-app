@@ -8,17 +8,14 @@ import Layout from './Layout';
 function renderWithRouter(initialPath = '/') {
   return render(
     <MemoryRouter initialEntries={[initialPath]}>
-      {' '}
       <Routes>
-        {' '}
         <Route path="*" element={<Layout />}>
-          {' '}
-          <Route index element={<div data-testid="outlet-content">Home</div>} />{' '}
-          <Route path="login" element={<div data-testid="outlet-content">Login</div>} />{' '}
-          <Route path="registration" element={<div data-testid="outlet-content">Registration</div>} />{' '}
-          <Route path="rest-client" element={<div data-testid="outlet-content">REST Client</div>} />{' '}
-        </Route>{' '}
-      </Routes>{' '}
+          <Route index element={<div data-testid="outlet-content">Home</div>} />
+          <Route path="login" element={<div data-testid="outlet-content">Login</div>} />
+          <Route path="registration" element={<div data-testid="outlet-content">Registration</div>} />
+          <Route path="rest-client" element={<div data-testid="outlet-content">REST Client</div>} />
+        </Route>
+      </Routes>
     </MemoryRouter>
   );
 }

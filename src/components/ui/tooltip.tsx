@@ -9,7 +9,6 @@ const TooltipContent = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Content>
 >(({ className, sideOffset = 4, ...props }, ref) => (
   <TooltipPrimitive.Portal>
-    {' '}
     <TooltipPrimitive.Content
       ref={ref}
       sideOffset={sideOffset}
@@ -18,7 +17,7 @@ const TooltipContent = React.forwardRef<
         className
       )}
       {...props}
-    />{' '}
+    />
   </TooltipPrimitive.Portal>
 ));
 TooltipContent.displayName = TooltipPrimitive.Content.displayName;

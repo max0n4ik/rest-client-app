@@ -9,8 +9,7 @@ vi.mock('@/components/Home/UserCard/UserCard', () => {
   return {
     default: ({ name, description }: UserCardProps) => (
       <li data-testid="user-card">
-        {' '}
-        <span>{name}</span> <span>{description}</span>{' '}
+        <span>{name}</span> <span>{description}</span>
       </li>
     ),
   };
@@ -20,8 +19,7 @@ vi.mock('@/components/Home/AchievementCard/AchievementCard', () => {
   return {
     default: ({ description }: AchievementCardProps) => (
       <li data-testid="achievement-card">
-        {' '}
-        <span>{description}</span>{' '}
+        <span>{description}</span>
       </li>
     ),
   };
