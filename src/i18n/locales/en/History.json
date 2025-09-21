@@ -1,0 +1,8 @@
+{
+  "title": "History",
+  "empty": "You haven't executed any requests. Try:",
+  "method": "Method: {{method}}",
+  "response": "Response",
+  "button": "REST client",
+  "endpointUrl": "Endpoint URL"
+}
