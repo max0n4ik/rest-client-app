@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLanguage, faBars, faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { useAuthStore } from '@/store/AuthState';
 
 const Header = (): JSX.Element => {
@@ -12,6 +12,7 @@ const Header = (): JSX.Element => {
   const logout = useAuthStore((state) => state.logout);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,6 +26,10 @@ const Header = (): JSX.Element => {
     const lang = i18n.language === 'en' ? 'ru' : 'en';
     i18n.changeLanguage(lang);
     localStorage.setItem('Language', lang);
+  };
+  const handleLogout = () => {
+    logout();
+    navigate('/');
   };
 
   return (
@@ -68,7 +73,7 @@ const Header = (): JSX.Element => {
           </button>
           {login && (
             <button
-              onClick={logout}
+              onClick={handleLogout}
               className="hover:text-accent flex h-10 w-10 cursor-pointer items-center justify-center rounded border border-white hover:bg-gray-200"
               aria-label="Logout">
               <FontAwesomeIcon icon={faArrowRightToBracket} />

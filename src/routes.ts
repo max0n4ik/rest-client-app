@@ -7,5 +7,6 @@ export default [
     route('rest-client', 'pages/restfulClient.tsx'),
     route('login', './pages/Login/Login.tsx'),
     route('registration', './pages/Registration/Registration.tsx'),
+    route('history', './pages/History/History.tsx'),
   ]),
 ] satisfies RouteConfig;
