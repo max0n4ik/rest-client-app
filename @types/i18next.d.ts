@@ -7,6 +7,8 @@ import restClientEN from '../src/i18n/locales/en/RestClient.json';
 import registrationEN from '../src/i18n/locales/en/Registration.json';
 import zodValidationEN from '../src/i18n/locales/en/ZodValidation.json';
 import loginEN from '../src/i18n/locales/en/Login.json';
+import historyEN from '../src/i18n/locales/en/History.json';
+
 declare module 'i18next' {
   interface CustomTypeOptions {
     defaultNS: 'home';
@@ -19,6 +21,7 @@ declare module 'i18next' {
       registration: typeof registrationEN;
       zodValidation: typeof zodValidationEN;
       login: typeof loginEN;
+      history: typeof historyEN;
     };
   }
 }
